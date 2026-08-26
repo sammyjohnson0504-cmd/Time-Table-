@@ -1,47 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 
 <meta name="viewport"
       content="width=device-width,
                initial-scale=1,
                viewport-fit=cover">
 
-<meta name="theme-color" content="#e9e4da">
+<meta name="theme-color" content="#e8ddc8">
+
+<meta name="apple-mobile-web-app-capable"
+      content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent">
 
 <title>My College Timetable</title>
 
 <style>
 
-/* =========================
-   LIGHT PREMIUM THEME
-   ========================= */
+/* =========================================
+   LIGHT BEIGE THEME
+   ========================================= */
 
 :root {
-    --bg: #e9e4da;
-    --panel: #f2eee6;
-    --panel2: #e4ded2;
+    --bg: #e8ddc8;
+    --panel: #f1e8d8;
+    --panel2: #e3d6c1;
 
-    --text: #202126;
-    --muted: #74716a;
+    --text: #2d2923;
+    --muted: #756d61;
 
-    --border: rgba(40, 37, 32, 0.10);
+    --line: rgba(65,52,36,.12);
 
-    --accent: #7566d8;
-    --accent-light: rgba(117, 102, 216, 0.13);
+    --accent: #8b6f47;
+    --accent2: #a8793d;
 
-    --green: #3f8f7b;
-    --red: #c65d68;
+    --danger: #b85c4a;
 
     --shadow:
-        0 15px 40px rgba(57, 50, 40, 0.12);
+        0 18px 50px rgba(91,69,40,.14);
 }
 
 
-/* =========================
-   BASIC RESET
-   ========================= */
+/* =========================================
+   RESET
+   ========================================= */
 
 * {
     box-sizing: border-box;
@@ -51,6 +56,7 @@ html,
 body {
     margin: 0;
     padding: 0;
+
     background: var(--bg);
     color: var(--text);
 
@@ -68,10 +74,15 @@ body {
     min-height: 100vh;
 }
 
+button {
+    font: inherit;
+    color: inherit;
+}
 
-/* =========================
-   APP CONTAINER
-   ========================= */
+
+/* =========================================
+   APP
+   ========================================= */
 
 .app {
     width: min(100%, 520px);
@@ -85,9 +96,9 @@ body {
 }
 
 
-/* =========================
+/* =========================================
    HEADER
-   ========================= */
+   ========================================= */
 
 .top {
     display: flex;
@@ -121,13 +132,15 @@ h1 {
 }
 
 .clock {
+    font-variant-numeric: tabular-nums;
+
+    text-align: right;
+
     font-size: 17px;
 
     font-weight: 700;
 
     white-space: nowrap;
-
-    font-variant-numeric: tabular-nums;
 }
 
 .tz {
@@ -143,19 +156,19 @@ h1 {
 }
 
 
-/* =========================
-   NEXT CLASS HERO
-   ========================= */
+/* =========================================
+   NEXT CLASS
+   ========================================= */
 
 .hero {
     background:
         linear-gradient(
             145deg,
-            #f4f0e8,
-            #ddd6c9
+            #f4ecdf,
+            #e4d7c1
         );
 
-    border: 1px solid var(--border);
+    border: 1px solid var(--line);
 
     border-radius: 26px;
 
@@ -168,7 +181,7 @@ h1 {
     overflow: hidden;
 }
 
-.hero::after {
+.hero:after {
     content: "";
 
     position: absolute;
@@ -184,7 +197,7 @@ h1 {
     background:
         radial-gradient(
             circle,
-            rgba(117,102,216,.20),
+            rgba(168,121,61,.20),
             transparent 65%
         );
 
@@ -226,11 +239,12 @@ h1 {
 }
 
 .count {
-    background: var(--accent-light);
+    background:
+        rgba(139,111,71,.12);
 
-    color: var(--accent);
-
-    border: 1px solid rgba(117,102,216,.20);
+    border:
+        1px solid
+        rgba(139,111,71,.20);
 
     padding: 8px 10px;
 
@@ -244,9 +258,9 @@ h1 {
 }
 
 
-/* =========================
+/* =========================================
    CONTROLS
-   ========================= */
+   ========================================= */
 
 .controls {
     display: flex;
@@ -264,7 +278,9 @@ h1 {
 
     color: var(--text);
 
-    border: 1px solid var(--border);
+    border:
+        1px solid
+        var(--line);
 
     border-radius: 14px;
 
@@ -285,9 +301,9 @@ h1 {
 }
 
 
-/* =========================
-   SECTION HEADINGS
-   ========================= */
+/* =========================================
+   SECTION TITLES
+   ========================================= */
 
 .section-title {
     display: flex;
@@ -314,9 +330,9 @@ h1 {
 }
 
 
-/* =========================
+/* =========================================
    DAYS
-   ========================= */
+   ========================================= */
 
 .day {
     margin-bottom: 12px;
@@ -345,14 +361,16 @@ h1 {
 }
 
 
-/* =========================
+/* =========================================
    CLASS CARD
-   ========================= */
+   ========================================= */
 
 .card {
     background: var(--panel);
 
-    border: 1px solid var(--border);
+    border:
+        1px solid
+        var(--line);
 
     border-radius: 19px;
 
@@ -371,13 +389,13 @@ h1 {
 
 .card.today {
     border-color:
-        rgba(117,102,216,.45);
+        rgba(139,111,71,.42);
 
     background:
         linear-gradient(
             145deg,
-            #eeeaf7,
-            #e7e1d7
+            #f5ecdf,
+            #eadfcb
         );
 }
 
@@ -446,11 +464,13 @@ h1 {
 
     font-weight: 750;
 
-    color: #4c4a45;
+    color: #4a4136;
 
     background: var(--panel2);
 
-    border: 1px solid var(--border);
+    border:
+        1px solid
+        var(--line);
 
     border-radius: 999px;
 
@@ -472,9 +492,9 @@ h1 {
 }
 
 
-/* =========================
+/* =========================================
    EMPTY STATE
-   ========================= */
+   ========================================= */
 
 .empty {
     padding: 24px 14px;
@@ -485,20 +505,24 @@ h1 {
 
     background: var(--panel);
 
-    border: 1px dashed var(--border);
+    border:
+        1px dashed
+        var(--line);
 
     border-radius: 18px;
 }
 
 
-/* =========================
+/* =========================================
    COURSE CARDS
-   ========================= */
+   ========================================= */
 
 .course {
     background: var(--panel);
 
-    border: 1px solid var(--border);
+    border:
+        1px solid
+        var(--line);
 
     border-radius: 18px;
 
@@ -534,7 +558,7 @@ h1 {
 
     margin-top: 7px;
 
-    color: #48463f;
+    color: #4a4136;
 
     line-height: 1.35;
 }
@@ -548,63 +572,85 @@ h1 {
 }
 
 
-/* =========================
-   HOLIDAY CARDS
-   ========================= */
+/* =========================================
+   HOLIDAY / NO CLASS CARDS
+   BURGER-KING STYLE BEIGE
+   ========================================= */
 
-.holiday {
+.holiday,
+.no-class {
+
     background:
         linear-gradient(
             145deg,
-            #eee1df,
-            #e8ddd5
+            #d3a064,
+            #c28c4f
         );
 
     border:
         1px solid
-        rgba(198,93,104,.22);
+        rgba(255,255,255,.28);
 
-    border-radius: 18px;
+    color: #fff;
+
+    border-radius: 19px;
 
     padding: 16px;
 
     margin-bottom: 9px;
+
+    box-shadow:
+        0 10px 24px
+        rgba(112,75,35,.14);
 }
 
-.holiday-date {
+.holiday-date,
+.no-class-date {
+
     font-size: 11px;
 
-    color: var(--red);
+    color: #fff;
 
-    font-weight: 800;
+    opacity: .92;
+
+    font-weight: 850;
 
     text-transform: uppercase;
 
-    letter-spacing: .06em;
+    letter-spacing: .07em;
 }
 
-.holiday-name {
+.holiday-name,
+.no-class-name {
+
     font-size: 18px;
+
+    color: #fff;
 
     font-weight: 900;
 
     margin-top: 5px;
 }
 
-.holiday-type {
+.holiday-type,
+.no-class-type {
+
     font-size: 12px;
 
-    color: var(--muted);
+    color: #fff;
 
-    margin-top: 3px;
+    opacity: .9;
+
+    margin-top: 4px;
 }
 
 
-/* =========================
+/* =========================================
    BOTTOM NAVIGATION
-   ========================= */
+   ========================================= */
 
 .nav {
+
     position: sticky;
 
     bottom:
@@ -616,18 +662,22 @@ h1 {
     display: grid;
 
     grid-template-columns:
-        repeat(4, 1fr);
+        repeat(4,1fr);
 
     gap: 7px;
 
     background:
-        rgba(228,222,210,.92);
+        rgba(226,214,193,.94);
 
-    backdrop-filter: blur(18px);
+    backdrop-filter:
+        blur(18px);
 
-    -webkit-backdrop-filter: blur(18px);
+    -webkit-backdrop-filter:
+        blur(18px);
 
-    border: 1px solid var(--border);
+    border:
+        1px solid
+        var(--line);
 
     border-radius: 20px;
 
@@ -639,6 +689,7 @@ h1 {
 }
 
 .nav button {
+
     border: 0;
 
     background: transparent;
@@ -659,26 +710,28 @@ h1 {
 }
 
 .nav button.active {
-    background: var(--accent-light);
 
-    color: var(--accent);
+    background:
+        rgba(139,111,71,.15);
+
+    color: #5c452c;
 }
 
 
-/* =========================
-   UTILITY
-   ========================= */
+/* =========================================
+   HIDDEN
+   ========================================= */
 
 .hidden {
     display: none !important;
 }
 
 
-/* =========================
+/* =========================================
    DESKTOP
-   ========================= */
+   ========================================= */
 
-@media (min-width: 700px) {
+@media (min-width:700px) {
 
     .app {
         padding-top: 34px;
@@ -687,6 +740,7 @@ h1 {
     .nav {
         position: static;
     }
+
 }
 
 </style>
@@ -697,239 +751,267 @@ h1 {
 
 <div class="app" id="app">
 
-    <!-- HEADER -->
 
-    <header class="top">
+<!-- ======================================
+     HEADER
+     ====================================== -->
 
-        <div>
+<header class="top">
 
-            <div class="eyebrow">
-                FORE School of Management
-            </div>
+    <div>
 
-            <h1>
-                My Timetable
-            </h1>
-
+        <div class="eyebrow">
+            FORE School of Management
         </div>
+
+        <h1>
+            My Timetable
+        </h1>
+
+    </div>
+
+
+    <div>
+
+        <div
+            class="clock"
+            id="clock">
+            --:--:--
+        </div>
+
+        <div class="tz">
+            IST · 12-hour
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ======================================
+     NEXT CLASS
+     ====================================== -->
+
+<section class="hero">
+
+    <div class="hero-row">
 
         <div>
 
             <div
-                class="clock"
-                id="clock">
-                --:--:--
-            </div>
-
-            <div class="tz">
-                IST · 12-hour
-            </div>
-
-        </div>
-
-    </header>
-
-
-    <!-- NEXT CLASS -->
-
-    <section class="hero">
-
-        <div class="hero-row">
-
-            <div>
-
-                <div
-                    class="hero-date"
-                    id="heroDate">
-                    Loading date…
-                </div>
-
-                <div
-                    class="next-title"
-                    id="nextTitle">
-                    Finding your next class…
-                </div>
-
-                <div
-                    class="next-sub"
-                    id="nextSub">
-                    Your selected courses only
-                </div>
-
+                class="hero-date"
+                id="heroDate">
+                Loading date…
             </div>
 
             <div
-                class="count"
-                id="classCount">
-                0 classes
+                class="next-title"
+                id="nextTitle">
+                Finding your next class…
+            </div>
+
+            <div
+                class="next-sub"
+                id="nextSub">
+                Your selected courses only
             </div>
 
         </div>
 
-    </section>
 
+        <div
+            class="count"
+            id="classCount">
 
-    <!-- TODAY -->
-
-    <div id="viewToday">
-
-        <div class="section-title">
-
-            <h2>
-                Today
-            </h2>
-
-            <span id="todayLabel"></span>
+            0 classes
 
         </div>
-
-        <div id="todayList"></div>
 
     </div>
 
-
-    <!-- WEEK -->
-
-    <div
-        id="viewWeek"
-        class="hidden">
-
-        <div class="section-title">
-
-            <h2>
-                Week view
-            </h2>
-
-            <span>
-                Weeks 7–13
-            </span>
-
-        </div>
+</section>
 
 
-        <div class="controls">
+<!-- ======================================
+     TODAY
+     ====================================== -->
 
-            <select
-                class="select"
-                id="weekSelect"
-                aria-label="Choose week">
-            </select>
+<div id="viewToday">
 
+    <div class="section-title">
 
-            <select
-                class="select"
-                id="courseFilter"
-                aria-label="Filter course">
-
-                <option value="ALL">
-                    All courses
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <input
-            class="search"
-            id="search"
-            type="search"
-            placeholder="Search course, professor or room"
-            aria-label="Search timetable">
-
-
-        <div id="weekList"></div>
-
-    </div>
-
-
-    <!-- COURSES -->
-
-    <div
-        id="viewCourses"
-        class="hidden">
-
-        <div class="section-title">
-
-            <h2>
-                My courses
-            </h2>
-
-            <span>
-                5 selected courses
-            </span>
-
-        </div>
-
-        <div id="courseList"></div>
-
-    </div>
-
-
-    <!-- HOLIDAYS -->
-
-    <div
-        id="viewHolidays"
-        class="hidden">
-
-        <div class="section-title">
-
-            <h2>
-                Holidays
-            </h2>
-
-            <span>
-                From timetable
-            </span>
-
-        </div>
-
-        <div id="holidayList"></div>
-
-    </div>
-
-
-    <!-- NAVIGATION -->
-
-    <nav
-        class="nav"
-        aria-label="Main navigation">
-
-        <button
-            class="active"
-            data-view="Today">
+        <h2>
             Today
-        </button>
+        </h2>
 
-        <button
-            data-view="Week">
-            Week
-        </button>
+        <span id="todayLabel"></span>
 
-        <button
-            data-view="Courses">
-            Courses
-        </button>
+    </div>
 
-        <button
-            data-view="Holidays">
+    <div id="todayList"></div>
+
+</div>
+
+
+<!-- ======================================
+     WEEK
+     ====================================== -->
+
+<div
+    id="viewWeek"
+    class="hidden">
+
+    <div class="section-title">
+
+        <h2>
+            Week view
+        </h2>
+
+        <span>
+            Weeks 7–13
+        </span>
+
+    </div>
+
+
+    <div class="controls">
+
+        <select
+            class="select"
+            id="weekSelect"
+            aria-label="Choose week">
+        </select>
+
+
+        <select
+            class="select"
+            id="courseFilter"
+            aria-label="Filter course">
+
+            <option value="ALL">
+                All courses
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <input
+        class="search"
+        id="search"
+        type="search"
+        placeholder="Search course, professor or room"
+        aria-label="Search timetable">
+
+
+    <div id="weekList"></div>
+
+</div>
+
+
+<!-- ======================================
+     COURSES
+     ====================================== -->
+
+<div
+    id="viewCourses"
+    class="hidden">
+
+    <div class="section-title">
+
+        <h2>
+            My courses
+        </h2>
+
+        <span>
+            5 selected courses
+        </span>
+
+    </div>
+
+    <div id="courseList"></div>
+
+</div>
+
+
+<!-- ======================================
+     HOLIDAYS
+     ====================================== -->
+
+<div
+    id="viewHolidays"
+    class="hidden">
+
+    <div class="section-title">
+
+        <h2>
             Holidays
-        </button>
+        </h2>
 
-    </nav>
+        <span>
+            No-class days
+        </span>
+
+    </div>
+
+    <div id="holidayList"></div>
+
+</div>
+
+
+<!-- ======================================
+     BOTTOM NAVIGATION
+     ====================================== -->
+
+<nav
+    class="nav"
+    aria-label="Main navigation">
+
+    <button
+        class="active"
+        data-view="Today">
+
+        Today
+
+    </button>
+
+
+    <button
+        data-view="Week">
+
+        Week
+
+    </button>
+
+
+    <button
+        data-view="Courses">
+
+        Courses
+
+    </button>
+
+
+    <button
+        data-view="Holidays">
+
+        Holidays
+
+    </button>
+
+</nav>
 
 </div>
 
 
 <script>
 
-/* =====================================================
-   YOUR TIMETABLE DATA
-   ===================================================== */
+/* =========================================
+   TIMETABLE DATA
+   ========================================= */
 
 const DATA = [
-
-/* ================= WEEK 7 ================= */
 
 {
     date:"2026-08-24",
@@ -947,6 +1029,19 @@ const DATA = [
 {
     date:"2026-08-24",
     day:"Monday",
+    code:"SDRM-1",
+    subject:"Sales, Distribution and Retail Management",
+    prof:"Prof. Qazi Asif Zameer",
+    short:"QZ",
+    room:"CR-6",
+    start:"3:50 PM",
+    end:"5:20 PM",
+    week:"Week 7"
+},
+
+{
+    date:"2026-08-24",
+    day:"Monday",
     code:"FD",
     subject:"Financial Derivatives",
     prof:"Prof. Vikas Pandey",
@@ -954,6 +1049,19 @@ const DATA = [
     room:"CR-7",
     start:"5:30 PM",
     end:"7:00 PM",
+    week:"Week 7"
+},
+
+{
+    date:"2026-08-25",
+    day:"Tuesday",
+    code:"SDRM-1",
+    subject:"Sales, Distribution and Retail Management",
+    prof:"Prof. Qazi Asif Zameer",
+    short:"QZ",
+    room:"CR-6",
+    start:"10:20 AM",
+    end:"11:50 AM",
     week:"Week 7"
 },
 
@@ -971,26 +1079,13 @@ const DATA = [
 },
 
 {
-    date:"2026-08-25",
-    day:"Tuesday",
-    code:"SDRM-1",
-    subject:"Sales, Distribution and Retail Management",
-    prof:"Prof. Qazi Asif Zameer",
-    short:"QZ",
-    room:"CR-6",
-    start:"3:50 PM",
-    end:"5:20 PM",
-    week:"Week 7"
-},
-
-{
     date:"2026-08-27",
     day:"Thursday",
     code:"AIM-1",
     subject:"Artificial Intelligence and Marketing",
     prof:"Prof. Ashutosh Pandey",
     short:"AP",
-    room:"CR-1",
+    room:"CR-17",
     start:"2:10 PM",
     end:"3:40 PM",
     week:"Week 7"
@@ -1010,7 +1105,22 @@ const DATA = [
 },
 
 
-/* ================= WEEK 8 ================= */
+/* =========================================
+   WEEK 8
+   ========================================= */
+
+{
+    date:"2026-08-31",
+    day:"Monday",
+    code:"SDRM-1",
+    subject:"Sales, Distribution and Retail Management",
+    prof:"Prof. Qazi Asif Zameer",
+    short:"QZ",
+    room:"CR-6",
+    start:"2:10 PM",
+    end:"3:40 PM",
+    week:"Week 8"
+},
 
 {
     date:"2026-08-31",
@@ -1022,19 +1132,6 @@ const DATA = [
     room:"CR-7",
     start:"3:50 PM",
     end:"5:20 PM",
-    week:"Week 8"
-},
-
-{
-    date:"2026-09-01",
-    day:"Tuesday",
-    code:"SDRM-1",
-    subject:"Sales, Distribution and Retail Management",
-    prof:"Prof. Qazi Asif Zameer",
-    short:"QZ",
-    room:"CR-6",
-    start:"2:10 PM",
-    end:"3:40 PM",
     week:"Week 8"
 },
 
@@ -1077,8 +1174,36 @@ const DATA = [
     week:"Week 8"
 },
 
+{
+    date:"2026-09-03",
+    day:"Thursday",
+    code:"WMAI-1",
+    subject:"Wealth Management and Alternate Investments",
+    prof:"Prof. Tarun K Soni",
+    short:"TKS",
+    room:"CR-17",
+    start:"2:10 PM",
+    end:"3:40 PM",
+    week:"Week 8"
+},
 
-/* ================= WEEK 9 ================= */
+
+/* =========================================
+   WEEK 9
+   ========================================= */
+
+{
+    date:"2026-09-07",
+    day:"Monday",
+    code:"FD",
+    subject:"Financial Derivatives",
+    prof:"Prof. Vikas Pandey",
+    short:"VP",
+    room:"CR-6",
+    start:"2:10 PM",
+    end:"3:40 PM",
+    week:"Week 9"
+},
 
 {
     date:"2026-09-08",
@@ -1100,9 +1225,22 @@ const DATA = [
     subject:"Financial Derivatives",
     prof:"Prof. Vikas Pandey",
     short:"VP",
-    room:"CR-6",
+    room:"CR-7",
     start:"2:10 PM",
     end:"3:40 PM",
+    week:"Week 9"
+},
+
+{
+    date:"2026-09-09",
+    day:"Wednesday",
+    code:"WMAI-1",
+    subject:"Wealth Management and Alternate Investments",
+    prof:"Prof. Tarun K Soni",
+    short:"TKS",
+    room:"CR-17",
+    start:"3:50 PM",
+    end:"5:20 PM",
     week:"Week 9"
 },
 
@@ -1114,26 +1252,41 @@ const DATA = [
     prof:"Prof. Ashutosh Pandey",
     short:"AP",
     room:"CR-7",
-    start:"7:00 PM",
-    end:"8:30 PM",
+    start:"7:10 PM",
+    end:"8:40 PM",
     week:"Week 9"
 },
 
 {
     date:"2026-09-10",
     day:"Thursday",
+    code:"BSRR-1",
+    subject:"Banking: Strategy Risks and Regulations",
+    prof:"Prof. Vandana Gupta",
+    short:"VG",
+    room:"CR-6",
+    start:"2:10 PM",
+    end:"3:40 PM",
+    week:"Week 9"
+},
+
+{
+    date:"2026-09-12",
+    day:"Saturday",
     code:"WMAI-1",
     subject:"Wealth Management and Alternate Investments",
     prof:"Prof. Tarun K Soni",
     short:"TKS",
-    room:"CR-17",
-    start:"3:50 PM",
-    end:"5:20 PM",
+    room:"CR-7",
+    start:"8:30 AM",
+    end:"10:00 AM",
     week:"Week 9"
 },
 
 
-/* ================= WEEK 10 ================= */
+/* =========================================
+   WEEK 10
+   ========================================= */
 
 {
     date:"2026-09-15",
@@ -1175,6 +1328,32 @@ const DATA = [
 },
 
 {
+    date:"2026-09-17",
+    day:"Thursday",
+    code:"WMAI-1",
+    subject:"Wealth Management and Alternate Investments",
+    prof:"Prof. Tarun K Soni",
+    short:"TKS",
+    room:"CR-6",
+    start:"2:10 PM",
+    end:"3:40 PM",
+    week:"Week 10"
+},
+
+{
+    date:"2026-09-18",
+    day:"Friday",
+    code:"AIM-1",
+    subject:"Artificial Intelligence and Marketing",
+    prof:"Prof. Ashutosh Pandey",
+    short:"AP",
+    room:"CR-6",
+    start:"8:30 AM",
+    end:"10:00 AM",
+    week:"Week 10"
+},
+
+{
     date:"2026-09-18",
     day:"Friday",
     code:"FD",
@@ -1194,14 +1373,42 @@ const DATA = [
     subject:"Sales, Distribution and Retail Management",
     prof:"Prof. Qazi Asif Zameer",
     short:"QZ",
+    room:"CR-17",
+    start:"12:00 PM",
+    end:"1:30 PM",
+    week:"Week 10"
+},
+
+{
+    date:"2026-09-20",
+    day:"Sunday",
+    code:"WMAI-1",
+    subject:"Wealth Management and Alternate Investments",
+    prof:"Prof. Tarun K Soni",
+    short:"TKS",
     room:"CR-7",
-    start:"3:50 PM",
-    end:"5:20 PM",
+    start:"12:00 PM",
+    end:"1:30 PM",
     week:"Week 10"
 },
 
 
-/* ================= WEEK 11 ================= */
+/* =========================================
+   WEEK 11
+   ========================================= */
+
+{
+    date:"2026-09-21",
+    day:"Monday",
+    code:"FD",
+    subject:"Financial Derivatives",
+    prof:"Prof. Vikas Pandey",
+    short:"VP",
+    room:"CR-7",
+    start:"12:00 PM",
+    end:"1:30 PM",
+    week:"Week 11"
+},
 
 {
     date:"2026-09-21",
@@ -1262,9 +1469,22 @@ const DATA = [
     subject:"Financial Derivatives",
     prof:"Prof. Vikas Pandey",
     short:"VP",
-    room:"CR-6",
+    room:"CR-7",
     start:"3:50 PM",
     end:"5:20 PM",
+    week:"Week 11"
+},
+
+{
+    date:"2026-09-24",
+    day:"Thursday",
+    code:"FD",
+    subject:"Financial Derivatives",
+    prof:"Prof. Vikas Pandey",
+    short:"VP",
+    room:"CR-6",
+    start:"8:30 AM",
+    end:"10:00 AM",
     week:"Week 11"
 },
 
@@ -1295,7 +1515,9 @@ const DATA = [
 },
 
 
-/* ================= WEEK 12 ================= */
+/* =========================================
+   WEEK 12
+   ========================================= */
 
 {
     date:"2026-09-30",
@@ -1311,8 +1533,8 @@ const DATA = [
 },
 
 {
-    date:"2026-10-01",
-    day:"Thursday",
+    date:"2026-09-30",
+    day:"Wednesday",
     code:"SDRM-1",
     subject:"Sales, Distribution and Retail Management",
     prof:"Prof. Qazi Asif Zameer",
@@ -1324,7 +1546,9 @@ const DATA = [
 },
 
 
-/* ================= WEEK 13 ================= */
+/* =========================================
+   WEEK 13
+   ========================================= */
 
 {
     date:"2026-10-05",
@@ -1376,123 +1600,165 @@ const DATA = [
     start:"12:00 PM",
     end:"1:30 PM",
     week:"Week 13"
+},
+
+{
+    date:"2026-10-08",
+    day:"Thursday",
+    code:"BSRR-1",
+    subject:"Banking: Strategy Risks and Regulations",
+    prof:"Prof. Vandana Gupta",
+    short:"VG",
+    room:"CR-17",
+    start:"2:10 PM",
+    end:"3:40 PM",
+    week:"Week 13"
 }
 
 ];
 
 
-/* =====================================================
+/* =========================================
    COURSES
-   ===================================================== */
+   ========================================= */
 
 const COURSES = [
 
-[
-    "WMAI-1",
-    "Wealth Management and Alternate Investments",
-    "Prof. Tarun K Soni",
-    "TKS"
-],
+    [
+        "WMAI-1",
+        "Wealth Management and Alternate Investments",
+        "Prof. Tarun K Soni",
+        "TKS"
+    ],
 
-[
-    "BSRR-1",
-    "Banking: Strategy Risks and Regulations",
-    "Prof. Vandana Gupta",
-    "VG"
-],
+    [
+        "BSRR-1",
+        "Banking: Strategy Risks and Regulations",
+        "Prof. Vandana Gupta",
+        "VG"
+    ],
 
-[
-    "FD",
-    "Financial Derivatives",
-    "Prof. Vikas Pandey",
-    "VP"
-],
+    [
+        "FD",
+        "Financial Derivatives",
+        "Prof. Vikas Pandey",
+        "VP"
+    ],
 
-[
-    "AIM-1",
-    "Artificial Intelligence and Marketing",
-    "Prof. Ashutosh Pandey",
-    "AP"
-],
+    [
+        "AIM-1",
+        "Artificial Intelligence and Marketing",
+        "Prof. Ashutosh Pandey",
+        "AP"
+    ],
 
-[
-    "SDRM-1",
-    "Sales, Distribution and Retail Management",
-    "Prof. Qazi Asif Zameer",
-    "QZ"
-]
+    [
+        "SDRM-1",
+        "Sales, Distribution and Retail Management",
+        "Prof. Qazi Asif Zameer",
+        "QZ"
+    ]
 
 ];
 
 
-/* =====================================================
-   HOLIDAYS
-   ===================================================== */
+/* =========================================
+   OFFICIAL HOLIDAYS
+   ========================================= */
 
 const HOLIDAYS = [
 
-[
-    "2026-08-26",
-    "Id-e-Milad",
-    "Holiday"
-],
+    [
+        "2026-08-26",
+        "Id-e-Milad",
+        "Official holiday"
+    ],
 
-[
-    "2026-08-28",
-    "Rakshabandhan",
-    "Holiday"
-],
+    [
+        "2026-08-28",
+        "Rakshabandhan",
+        "Official holiday"
+    ],
 
-[
-    "2026-10-02",
-    "Mahatama Gandhi's Birthday",
-    "Holiday"
-]
+    [
+        "2026-10-02",
+        "Mahatama Gandhi's Birthday",
+        "Official holiday"
+    ]
 
 ];
 
 
-/* =====================================================
-   DATE FUNCTIONS
-   ===================================================== */
+/* =========================================
+   STATE
+   ========================================= */
 
-function parseDate(dateString) {
+const state = {
+
+    view: "Today",
+
+    week: "Week 7",
+
+    course: "ALL",
+
+    search: ""
+
+};
+
+
+/* =========================================
+   DATE FUNCTIONS
+   ========================================= */
+
+function parseDate(s) {
 
     const [
-        year,
-        month,
-        day
-    ] = dateString
+        y,
+        m,
+        d
+    ] = s
         .split("-")
         .map(Number);
 
     return new Date(
         Date.UTC(
-            year,
-            month - 1,
-            day
+            y,
+            m - 1,
+            d
         )
     );
+
 }
 
 
-function dateKey() {
+function dateKey(d) {
 
     return new Intl.DateTimeFormat(
         "en-CA",
         {
             timeZone: "Asia/Kolkata",
+
             year: "numeric",
+
             month: "2-digit",
+
             day: "2-digit"
         }
-    ).format(new Date());
+    ).format(d);
+
+}
+
+
+function todayKey() {
+
+    return dateKey(new Date());
+
 }
 
 
 function formatDate(
-    dateString,
-    options = {
+    s,
+    opts = {
         weekday: "short",
         month: "short",
         day: "numeric"
@@ -1503,17 +1769,19 @@ function formatDate(
         "en-IN",
         {
             timeZone: "Asia/Kolkata",
-            ...options
+
+            ...opts
         }
     ).format(
-        parseDate(dateString)
+        parseDate(s)
     );
+
 }
 
 
-/* =====================================================
-   LIVE 12-HOUR CLOCK
-   ===================================================== */
+/* =========================================
+   LIVE CLOCK
+   ========================================= */
 
 function formatClock() {
 
@@ -1521,9 +1789,13 @@ function formatClock() {
         "en-IN",
         {
             timeZone: "Asia/Kolkata",
+
             hour: "numeric",
+
             minute: "2-digit",
+
             second: "2-digit",
+
             hour12: true
         }
     ).format(new Date());
@@ -1531,21 +1803,22 @@ function formatClock() {
 }
 
 
-/* =====================================================
-   CONVERT TIME TO MINUTES
-   ===================================================== */
+/* =========================================
+   TIME → MINUTES
+   ========================================= */
 
-function minutes(time) {
+function minutes(t) {
 
     const match =
-        time.match(
+        t.match(
             /(\d+):(\d+)\s*(AM|PM)/i
         );
 
     if (!match)
         return 0;
 
-    let hour = Number(match[1]);
+    let hour =
+        Number(match[1]);
 
     const minute =
         Number(match[2]);
@@ -1553,40 +1826,49 @@ function minutes(time) {
     const period =
         match[3].toUpperCase();
 
+
     if (
         period === "AM" &&
         hour === 12
     ) {
+
         hour = 0;
+
     }
+
 
     if (
         period === "PM" &&
         hour !== 12
     ) {
+
         hour += 12;
+
     }
+
 
     return (
         hour * 60 +
         minute
     );
+
 }
 
 
-/* =====================================================
-   CREATE CLASS CARD
-   ===================================================== */
+/* =========================================
+   CLASS CARD
+   ========================================= */
 
 function card(item) {
 
-    const today =
-        item.date === dateKey();
+    const isToday =
+        item.date === todayKey();
+
 
     return `
 
     <article
-        class="card ${today ? "today" : ""}">
+        class="card ${isToday ? "today" : ""}">
 
         <div class="time">
 
@@ -1639,16 +1921,18 @@ function card(item) {
     </article>
 
     `;
+
 }
 
 
-/* =====================================================
-   GROUP CLASSES BY DATE
-   ===================================================== */
+/* =========================================
+   GROUP CLASSES
+   ========================================= */
 
 function grouped(items) {
 
     const result = {};
+
 
     items.forEach(item => {
 
@@ -1674,18 +1958,21 @@ function grouped(items) {
 
         });
 
+
     return result;
+
 }
 
 
-/* =====================================================
+/* =========================================
    TODAY
-   ===================================================== */
+   ========================================= */
 
 function renderToday() {
 
     const today =
-        dateKey();
+        todayKey();
+
 
     const list =
         DATA
@@ -1703,6 +1990,7 @@ function renderToday() {
     document.getElementById(
         "todayLabel"
     ).textContent =
+
         formatDate(
             today,
             {
@@ -1713,30 +2001,30 @@ function renderToday() {
         );
 
 
-    if (list.length) {
+    document.getElementById(
+        "todayList"
+    ).innerHTML =
 
-        document.getElementById(
-            "todayList"
-        ).innerHTML =
-            list.map(card).join("");
+        list.length
 
-    } else {
+        ?
 
-        const holiday =
-            HOLIDAYS.some(
-                h => h[0] === today
-            );
+        list.map(card).join("")
 
+        :
 
-        document.getElementById(
-            "todayList"
-        ).innerHTML = `
+        `
 
         <div class="empty">
 
             ${
-                holiday
+                HOLIDAYS.some(
+                    h =>
+                        h[0] === today
+                )
+
                 ? "Holiday — no selected classes today."
+
                 : "No selected classes today."
             }
 
@@ -1744,14 +2032,12 @@ function renderToday() {
 
         `;
 
-    }
-
 }
 
 
-/* =====================================================
+/* =========================================
    WEEK VIEW
-   ===================================================== */
+   ========================================= */
 
 function renderWeek() {
 
@@ -1780,33 +2066,33 @@ function renderWeek() {
     }
 
 
-    const search =
+    const query =
         state.search
             .trim()
             .toLowerCase();
 
 
-    if (search) {
+    if (query) {
 
         list =
-            list.filter(
-                item => {
+            list.filter(item => {
 
-                    const text =
-                        `
-                        ${item.code}
-                        ${item.subject}
-                        ${item.prof}
-                        ${item.room}
-                        `
-                        .toLowerCase();
+                const text = `
 
-                    return text.includes(
-                        search
-                    );
+                    ${item.code}
 
-                }
-            );
+                    ${item.subject}
+
+                    ${item.prof}
+
+                    ${item.room}
+
+                `.toLowerCase();
+
+
+                return text.includes(query);
+
+            });
 
     }
 
@@ -1820,11 +2106,57 @@ function renderWeek() {
             .sort();
 
 
-    if (!dates.length) {
+    document.getElementById(
+        "weekList"
+    ).innerHTML =
 
-        document.getElementById(
-            "weekList"
-        ).innerHTML = `
+        dates.length
+
+        ?
+
+        dates.map(date => `
+
+            <section class="day">
+
+                <div class="day-head">
+
+                    <span class="day-name">
+
+                        ${
+                            formatDate(
+                                date,
+                                {
+                                    weekday:
+                                        "long"
+                                }
+                            )
+                        }
+
+                    </span>
+
+
+                    <span class="day-date">
+
+                        ${formatDate(date)}
+
+                    </span>
+
+                </div>
+
+
+                ${
+                    groups[date]
+                        .map(card)
+                        .join("")
+                }
+
+            </section>
+
+        `).join("")
+
+        :
+
+        `
 
         <div class="empty">
 
@@ -1835,54 +2167,12 @@ function renderWeek() {
 
         `;
 
-        return;
-    }
-
-
-    document.getElementById(
-        "weekList"
-    ).innerHTML =
-
-        dates.map(date => `
-
-        <section class="day">
-
-            <div class="day-head">
-
-                <span class="day-name">
-                    ${
-                        formatDate(
-                            date,
-                            {
-                                weekday: "long"
-                            }
-                        )
-                    }
-                </span>
-
-                <span class="day-date">
-                    ${formatDate(date)}
-                </span>
-
-            </div>
-
-
-            ${
-                groups[date]
-                    .map(card)
-                    .join("")
-            }
-
-        </section>
-
-        `).join("");
-
 }
 
 
-/* =====================================================
-   COURSES PAGE
-   ===================================================== */
+/* =========================================
+   COURSES
+   ========================================= */
 
 function renderCourses() {
 
@@ -1890,208 +2180,321 @@ function renderCourses() {
         "courseList"
     ).innerHTML =
 
-        COURSES.map(course => {
+        COURSES
+            .map(course => {
 
-            const count =
-                DATA.filter(
-                    item =>
-                        item.code ===
-                        course[0]
-                ).length;
+                const count =
+                    DATA.filter(
+                        item =>
+                            item.code ===
+                            course[0]
+                    ).length;
 
 
-            return `
+                return `
 
-            <article class="course">
+                <article
+                    class="course">
 
-                <div class="course-top">
+                    <div
+                        class="course-top">
 
-                    <div class="course-code">
-                        ${course[0]}
+                        <div
+                            class="course-code">
+
+                            ${course[0]}
+
+                        </div>
+
+
+                        <div
+                            class="course-prof">
+
+                            ${course[2]}
+
+                            <br>
+
+                            ${course[3]}
+
+                        </div>
+
                     </div>
 
-                    <div class="course-prof">
 
-                        ${course[2]}
+                    <div
+                        class="course-name">
 
-                        <br>
-
-                        ${course[3]}
+                        ${course[1]}
 
                     </div>
 
-                </div>
 
+                    <div
+                        class="course-count">
 
-                <div class="course-name">
+                        ${count}
+                        classes in Weeks 7–13
 
-                    ${course[1]}
+                    </div>
 
-                </div>
+                </article>
 
+                `;
 
-                <div class="course-count">
-
-                    ${count}
-                    classes in Weeks 7–13
-
-                </div>
-
-            </article>
-
-            `;
-
-        }).join("");
+            })
+            .join("");
 
 }
 
 
-/* =====================================================
-   HOLIDAYS
-   ===================================================== */
+/* =========================================
+   HOLIDAYS + NO CLASS DAYS
+   ========================================= */
 
 function renderHolidays() {
+
+    const startDate =
+        parseDate("2026-08-24");
+
+
+    const endDate =
+        parseDate("2026-10-11");
+
+
+    const classesByDate = {};
+
+
+    DATA.forEach(item => {
+
+        classesByDate[item.date] ??= [];
+
+        classesByDate[item.date].push(item);
+
+    });
+
+
+    const official = {};
+
+
+    HOLIDAYS.forEach(item => {
+
+        official[item[0]] = item;
+
+    });
+
+
+    const cards = [];
+
+
+    for (
+
+        let cursor =
+            new Date(startDate);
+
+        cursor <= endDate;
+
+        cursor.setUTCDate(
+            cursor.getUTCDate() + 1
+        )
+
+    ) {
+
+        const key =
+            cursor
+                .toISOString()
+                .slice(0,10);
+
+
+        if (
+            !classesByDate[key] ||
+            classesByDate[key].length === 0
+        ) {
+
+
+            if (official[key]) {
+
+                cards.push(`
+
+                    <article
+                        class="holiday">
+
+                        <div
+                            class="holiday-date">
+
+                            ${
+                                formatDate(
+                                    key,
+                                    {
+                                        weekday:"long",
+                                        month:"long",
+                                        day:"numeric"
+                                    }
+                                )
+                            }
+
+                        </div>
+
+
+                        <div
+                            class="holiday-name">
+
+                            ${official[key][1]}
+
+                        </div>
+
+
+                        <div
+                            class="holiday-type">
+
+                            ${official[key][2]}
+
+                            · No classes for
+                            your selected subjects
+
+                        </div>
+
+                    </article>
+
+                `);
+
+            }
+
+
+            else {
+
+                cards.push(`
+
+                    <article
+                        class="no-class">
+
+                        <div
+                            class="no-class-date">
+
+                            ${
+                                formatDate(
+                                    key,
+                                    {
+                                        weekday:"long",
+                                        month:"long",
+                                        day:"numeric"
+                                    }
+                                )
+                            }
+
+                        </div>
+
+
+                        <div
+                            class="no-class-name">
+
+                            Holiday · No Classes
+
+                        </div>
+
+
+                        <div
+                            class="no-class-type">
+
+                            No classes for
+                            your selected subjects
+
+                        </div>
+
+                    </article>
+
+                `);
+
+            }
+
+        }
+
+    }
+
 
     document.getElementById(
         "holidayList"
     ).innerHTML =
-
-        HOLIDAYS.map(
-            holiday => `
-
-            <article class="holiday">
-
-                <div class="holiday-date">
-
-                    ${
-                        formatDate(
-                            holiday[0],
-                            {
-                                weekday: "long",
-                                month: "long",
-                                day: "numeric"
-                            }
-                        )
-                    }
-
-                </div>
-
-
-                <div class="holiday-name">
-
-                    ${holiday[1]}
-
-                </div>
-
-
-                <div class="holiday-type">
-
-                    ${holiday[2]}
-
-                </div>
-
-            </article>
-
-            `
-        ).join("");
+        cards.join("");
 
 }
 
 
-/* =====================================================
+/* =========================================
    FIND NEXT CLASS
-   ===================================================== */
+   ========================================= */
 
 function findNext() {
 
+    const now =
+        new Date();
+
+
     const today =
-        dateKey();
+        todayKey();
+
+
+    const nowTime =
+        new Intl.DateTimeFormat(
+            "en-IN",
+            {
+                timeZone:
+                    "Asia/Kolkata",
+
+                hour:
+                    "2-digit",
+
+                minute:
+                    "2-digit",
+
+                hour12: false
+            }
+        )
+        .format(now);
+
+
+    const nowMin =
+        Number(
+            nowTime
+                .replace(":","")
+        );
 
 
     const sorted =
         [...DATA].sort(
-            (a,b) => {
+            (a,b) =>
 
-                if (
-                    a.date !==
+                a.date.localeCompare(
                     b.date
-                ) {
+                )
 
-                    return a.date.localeCompare(
-                        b.date
-                    );
+                ||
 
-                }
-
-                return (
-                    minutes(a.start) -
-                    minutes(b.start)
-                );
-
-            }
+                minutes(a.start) -
+                minutes(b.start)
         );
-
-
-    const currentTime =
-        new Date();
-
-
-    const currentHour =
-        Number(
-            new Intl.DateTimeFormat(
-                "en-IN",
-                {
-                    timeZone:
-                        "Asia/Kolkata",
-
-                    hour:
-                        "2-digit",
-
-                    hour12:false
-                }
-            ).format(currentTime)
-        );
-
-
-    const currentMinute =
-        Number(
-            new Intl.DateTimeFormat(
-                "en-IN",
-                {
-                    timeZone:
-                        "Asia/Kolkata",
-
-                    minute:
-                        "2-digit",
-
-                    hour12:false
-                }
-            ).format(currentTime)
-        );
-
-
-    const currentMinutes =
-        currentHour * 60 +
-        currentMinute;
 
 
     let next =
         sorted.find(
             item =>
 
-                item.date > today ||
+                item.date > today
+
+                ||
 
                 (
                     item.date === today &&
-                    minutes(item.start) >
-                    currentMinutes
+
+                    minutes(item.start)
+                    > nowMin
                 )
         );
 
 
     if (!next) {
 
-        next = sorted[0];
+        next =
+            sorted[0];
 
     }
 
@@ -2102,9 +2505,13 @@ function findNext() {
 
         next.date === today
 
-        ? "NEXT CLASS"
+        ?
 
-        : formatDate(
+        "NEXT CLASS"
+
+        :
+
+        formatDate(
             next.date,
             {
                 weekday:"short",
@@ -2137,9 +2544,9 @@ function findNext() {
 }
 
 
-/* =====================================================
-   CHANGE VIEW
-   ===================================================== */
+/* =========================================
+   VIEW SWITCHING
+   ========================================= */
 
 function setView(view) {
 
@@ -2159,7 +2566,8 @@ function setView(view) {
             .getElementById(
                 "view" + name
             )
-            .classList.toggle(
+            .classList
+            .toggle(
                 "hidden",
                 name !== view
             );
@@ -2169,7 +2577,8 @@ function setView(view) {
             .querySelector(
                 `[data-view="${name}"]`
             )
-            .classList.toggle(
+            .classList
+            .toggle(
                 "active",
                 name === view
             );
@@ -2179,26 +2588,9 @@ function setView(view) {
 }
 
 
-/* =====================================================
-   STATE
-   ===================================================== */
-
-const state = {
-
-    view: "Today",
-
-    week: "Week 7",
-
-    course: "ALL",
-
-    search: ""
-
-};
-
-
-/* =====================================================
-   NAVIGATION
-   ===================================================== */
+/* =========================================
+   NAVIGATION EVENTS
+   ========================================= */
 
 document
     .querySelectorAll(
@@ -2220,9 +2612,9 @@ document
     });
 
 
-/* =====================================================
+/* =========================================
    WEEK SELECT
-   ===================================================== */
+   ========================================= */
 
 document
     .getElementById(
@@ -2241,9 +2633,9 @@ document
     );
 
 
-/* =====================================================
+/* =========================================
    COURSE FILTER
-   ===================================================== */
+   ========================================= */
 
 document
     .getElementById(
@@ -2262,9 +2654,9 @@ document
     );
 
 
-/* =====================================================
+/* =========================================
    SEARCH
-   ===================================================== */
+   ========================================= */
 
 document
     .getElementById(
@@ -2283,9 +2675,9 @@ document
     );
 
 
-/* =====================================================
-   POPULATE WEEK SELECT
-   ===================================================== */
+/* =========================================
+   POPULATE WEEK DROPDOWN
+   ========================================= */
 
 const weeks =
     [
@@ -2302,38 +2694,42 @@ document.getElementById(
     "weekSelect"
 ).innerHTML =
 
-    weeks.map(
-        week =>
-            `<option>
-                ${week}
-            </option>`
-    ).join("");
+    weeks
+        .map(
+            week =>
+                `<option>
+                    ${week}
+                </option>`
+        )
+        .join("");
 
 
-/* =====================================================
-   POPULATE COURSE SELECT
-   ===================================================== */
+/* =========================================
+   POPULATE COURSE DROPDOWN
+   ========================================= */
 
 document.getElementById(
     "courseFilter"
 ).innerHTML +=
 
-    COURSES.map(
-        course =>
+    COURSES
+        .map(
+            course =>
 
-            `<option
-                value="${course[0]}">
+                `<option
+                    value="${course[0]}">
 
-                ${course[0]}
+                    ${course[0]}
 
-            </option>`
+                </option>`
 
-    ).join("");
+        )
+        .join("");
 
 
-/* =====================================================
-   INITIAL RENDER
-   ===================================================== */
+/* =========================================
+   INITIALIZE
+   ========================================= */
 
 function render() {
 
@@ -2359,11 +2755,12 @@ function render() {
 render();
 
 
-/* =====================================================
-   UPDATE CLOCK EVERY SECOND
-   ===================================================== */
+/* =========================================
+   UPDATE CLOCK
+   ========================================= */
 
 setInterval(
+
     () => {
 
         document.getElementById(
@@ -2375,7 +2772,9 @@ setInterval(
         findNext();
 
     },
+
     1000
+
 );
 
 </script>
