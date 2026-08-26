@@ -1,464 +1,2384 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Customized Timetable</title>
-  <style>
-    :root {
-      --primary: #1e3a8a;
-      --secondary: #3b82f6;
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --text: #1e293b;
-      --text-muted: #64748b;
-      --holiday-bg: #fee2e2;
-      --holiday-text: #991b1b;
-      --class-bg: #eff6ff;
-      --class-border: #bfdbfe;
-      --free-bg: #f1f5f9;
-      --free-text: #94a3b8;
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1,
+               viewport-fit=cover">
+
+<meta name="theme-color" content="#e9e4da">
+
+<title>My College Timetable</title>
+
+<style>
+
+/* =========================
+   LIGHT PREMIUM THEME
+   ========================= */
+
+:root {
+    --bg: #e9e4da;
+    --panel: #f2eee6;
+    --panel2: #e4ded2;
+
+    --text: #202126;
+    --muted: #74716a;
+
+    --border: rgba(40, 37, 32, 0.10);
+
+    --accent: #7566d8;
+    --accent-light: rgba(117, 102, 216, 0.13);
+
+    --green: #3f8f7b;
+    --red: #c65d68;
+
+    --shadow:
+        0 15px 40px rgba(57, 50, 40, 0.12);
+}
+
+
+/* =========================
+   BASIC RESET
+   ========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        Inter,
+        system-ui,
+        sans-serif;
+}
+
+body {
+    min-height: 100vh;
+}
+
+
+/* =========================
+   APP CONTAINER
+   ========================= */
+
+.app {
+    width: min(100%, 520px);
+
+    margin: auto;
+
+    padding:
+        calc(16px + env(safe-area-inset-top))
+        14px
+        calc(24px + env(safe-area-inset-bottom));
+}
+
+
+/* =========================
+   HEADER
+   ========================= */
+
+.top {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin-bottom: 16px;
+}
+
+.eyebrow {
+    font-size: 12px;
+
+    color: var(--muted);
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+}
+
+h1 {
+    font-size: 29px;
+
+    line-height: 1.05;
+
+    margin: 5px 0 0;
+
+    letter-spacing: -.04em;
+}
+
+.clock {
+    font-size: 17px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    font-variant-numeric: tabular-nums;
+}
+
+.tz {
+    font-size: 10px;
+
+    color: var(--muted);
+
+    font-weight: 600;
+
+    text-align: right;
+
+    margin-top: 2px;
+}
+
+
+/* =========================
+   NEXT CLASS HERO
+   ========================= */
+
+.hero {
+    background:
+        linear-gradient(
+            145deg,
+            #f4f0e8,
+            #ddd6c9
+        );
+
+    border: 1px solid var(--border);
+
+    border-radius: 26px;
+
+    padding: 18px;
+
+    box-shadow: var(--shadow);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    border-radius: 50%;
+
+    right: -75px;
+    top: -80px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(117,102,216,.20),
+            transparent 65%
+        );
+
+    pointer-events: none;
+}
+
+.hero-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+}
+
+.hero-date {
+    font-size: 13px;
+
+    color: var(--muted);
+
+    margin-bottom: 6px;
+}
+
+.next-title {
+    font-size: 21px;
+
+    font-weight: 800;
+
+    letter-spacing: -.03em;
+}
+
+.next-sub {
+    font-size: 13px;
+
+    color: var(--muted);
+
+    margin-top: 4px;
+}
+
+.count {
+    background: var(--accent-light);
+
+    color: var(--accent);
+
+    border: 1px solid rgba(117,102,216,.20);
+
+    padding: 8px 10px;
+
+    border-radius: 14px;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+/* =========================
+   CONTROLS
+   ========================= */
+
+.controls {
+    display: flex;
+
+    gap: 8px;
+
+    margin: 14px 0;
+}
+
+.select,
+.search {
+    width: 100%;
+
+    background: var(--panel);
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 12px 13px;
+
+    outline: none;
+
+    font-size: 16px;
+}
+
+.search {
+    margin-bottom: 12px;
+}
+
+.select:focus,
+.search:focus {
+    border-color: var(--accent);
+}
+
+
+/* =========================
+   SECTION HEADINGS
+   ========================= */
+
+.section-title {
+    display: flex;
+
+    align-items: end;
+
+    justify-content: space-between;
+
+    margin: 20px 2px 10px;
+}
+
+.section-title h2 {
+    font-size: 17px;
+
+    margin: 0;
+
+    letter-spacing: -.02em;
+}
+
+.section-title span {
+    font-size: 11px;
+
+    color: var(--muted);
+}
+
+
+/* =========================
+   DAYS
+   ========================= */
+
+.day {
+    margin-bottom: 12px;
+}
+
+.day-head {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 8px 4px;
+}
+
+.day-name {
+    font-weight: 800;
+
+    font-size: 14px;
+}
+
+.day-date {
+    font-size: 12px;
+
+    color: var(--muted);
+}
+
+
+/* =========================
+   CLASS CARD
+   ========================= */
+
+.card {
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 19px;
+
+    padding: 14px;
+
+    margin-bottom: 8px;
+
+    display: flex;
+
+    gap: 12px;
+
+    align-items: center;
+
+    transition: .18s;
+}
+
+.card.today {
+    border-color:
+        rgba(117,102,216,.45);
+
+    background:
+        linear-gradient(
+            145deg,
+            #eeeaf7,
+            #e7e1d7
+        );
+}
+
+.time {
+    width: 82px;
+
+    flex: 0 0 82px;
+}
+
+.time strong {
+    font-size: 13px;
+
+    display: block;
+}
+
+.time small {
+    font-size: 11px;
+
+    color: var(--muted);
+
+    display: block;
+
+    margin-top: 3px;
+}
+
+.info {
+    min-width: 0;
+
+    flex: 1;
+}
+
+.code {
+    font-size: 16px;
+
+    font-weight: 900;
+
+    letter-spacing: -.02em;
+}
+
+.subject {
+    font-size: 12px;
+
+    color: var(--muted);
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    margin-top: 2px;
+}
+
+.meta {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+
+    margin-top: 8px;
+}
+
+.pill {
+    font-size: 10px;
+
+    font-weight: 750;
+
+    color: #4c4a45;
+
+    background: var(--panel2);
+
+    border: 1px solid var(--border);
+
+    border-radius: 999px;
+
+    padding: 5px 7px;
+}
+
+.dot {
+    width: 9px;
+
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+
+    margin-left: auto;
+
+    flex: 0 0 9px;
+}
+
+
+/* =========================
+   EMPTY STATE
+   ========================= */
+
+.empty {
+    padding: 24px 14px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    background: var(--panel);
+
+    border: 1px dashed var(--border);
+
+    border-radius: 18px;
+}
+
+
+/* =========================
+   COURSE CARDS
+   ========================= */
+
+.course {
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    padding: 15px;
+
+    margin-bottom: 8px;
+}
+
+.course-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.course-code {
+    font-size: 17px;
+
+    font-weight: 900;
+}
+
+.course-prof {
+    font-size: 12px;
+
+    color: var(--muted);
+
+    text-align: right;
+}
+
+.course-name {
+    font-size: 13px;
+
+    margin-top: 7px;
+
+    color: #48463f;
+
+    line-height: 1.35;
+}
+
+.course-count {
+    font-size: 11px;
+
+    color: var(--muted);
+
+    margin-top: 10px;
+}
+
+
+/* =========================
+   HOLIDAY CARDS
+   ========================= */
+
+.holiday {
+    background:
+        linear-gradient(
+            145deg,
+            #eee1df,
+            #e8ddd5
+        );
+
+    border:
+        1px solid
+        rgba(198,93,104,.22);
+
+    border-radius: 18px;
+
+    padding: 16px;
+
+    margin-bottom: 9px;
+}
+
+.holiday-date {
+    font-size: 11px;
+
+    color: var(--red);
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: .06em;
+}
+
+.holiday-name {
+    font-size: 18px;
+
+    font-weight: 900;
+
+    margin-top: 5px;
+}
+
+.holiday-type {
+    font-size: 12px;
+
+    color: var(--muted);
+
+    margin-top: 3px;
+}
+
+
+/* =========================
+   BOTTOM NAVIGATION
+   ========================= */
+
+.nav {
+    position: sticky;
+
+    bottom:
+        calc(
+            10px +
+            env(safe-area-inset-bottom)
+        );
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 7px;
+
+    background:
+        rgba(228,222,210,.92);
+
+    backdrop-filter: blur(18px);
+
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    padding: 7px;
+
+    margin-top: 18px;
+
+    box-shadow: var(--shadow);
+}
+
+.nav button {
+    border: 0;
+
+    background: transparent;
+
+    border-radius: 14px;
+
+    padding: 11px 6px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    color: var(--muted);
+
+    min-height: 44px;
+
+    cursor: pointer;
+}
+
+.nav button.active {
+    background: var(--accent-light);
+
+    color: var(--accent);
+}
+
+
+/* =========================
+   UTILITY
+   ========================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   DESKTOP
+   ========================= */
+
+@media (min-width: 700px) {
+
+    .app {
+        padding-top: 34px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    .nav {
+        position: static;
     }
+}
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      padding: 24px 16px;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      color: var(--primary);
-      margin-bottom: 8px;
-    }
-
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-
-    .week-btn {
-      padding: 8px 16px;
-      border: 1px solid var(--secondary);
-      background: #ffffff;
-      color: var(--secondary);
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.2s ease;
-    }
-
-    .week-btn:hover {
-      background: var(--class-bg);
-    }
-
-    .week-btn.active {
-      background: var(--secondary);
-      color: #ffffff;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      overflow-x: auto;
-      padding: 16px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 800px;
-    }
-
-    th, td {
-      border: 1px solid #e2e8f0;
-      padding: 12px;
-      text-align: center;
-      vertical-align: middle;
-      font-size: 0.9rem;
-    }
-
-    th {
-      background-color: #f1f5f9;
-      color: var(--text);
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .day-col {
-      font-weight: 600;
-      background-color: #f8fafc;
-      width: 110px;
-    }
-
-    .slot-class {
-      background-color: var(--class-bg);
-      border: 1.5px solid var(--class-border);
-      border-radius: 6px;
-      padding: 8px;
-      text-align: left;
-    }
-
-    .slot-class .subject {
-      font-weight: 700;
-      color: var(--primary);
-      font-size: 0.95rem;
-    }
-
-    .slot-class .room {
-      display: inline-block;
-      background: #dbeafe;
-      color: #1e40af;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      margin: 4px 0;
-    }
-
-    .slot-class .faculty {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .slot-holiday {
-      background-color: var(--holiday-bg);
-      color: var(--holiday-text);
-      font-weight: 700;
-      border-radius: 6px;
-      padding: 12px;
-    }
-
-    .slot-free {
-      color: var(--free-text);
-      font-style: italic;
-      font-size: 0.85rem;
-    }
-  </style>
+</style>
 </head>
+
+
 <body>
 
-<div class="container">
-  <header>
-    <h1>Personalized Class Timetable</h1>
-    <p class="subtitle">Enrolled: WMAI-1, FD, BSRR-1, SDRM-1, AIM-1</p>
-  </header>
+<div class="app" id="app">
 
-  <div class="controls" id="weekControls"></div>
+    <!-- HEADER -->
 
-  <div class="card">
-    <table>
-      <thead>
-        <tr>
-          <th>Day / Date</th>
-          <th>08:30 - 10:00</th>
-          <th>10:20 - 11:50</th>
-          <th>12:00 - 13:30</th>
-          <th>14:10 - 15:40</th>
-          <th>15:50 - 17:20</th>
-          <th>17:30 - 19:00</th>
-          <th>19:10 - 20:40</th>
-        </tr>
-      </thead>
-      <tbody id="timetableBody"></tbody>
-    </table>
-  </div>
+    <header class="top">
+
+        <div>
+
+            <div class="eyebrow">
+                FORE School of Management
+            </div>
+
+            <h1>
+                My Timetable
+            </h1>
+
+        </div>
+
+        <div>
+
+            <div
+                class="clock"
+                id="clock">
+                --:--:--
+            </div>
+
+            <div class="tz">
+                IST · 12-hour
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- NEXT CLASS -->
+
+    <section class="hero">
+
+        <div class="hero-row">
+
+            <div>
+
+                <div
+                    class="hero-date"
+                    id="heroDate">
+                    Loading date…
+                </div>
+
+                <div
+                    class="next-title"
+                    id="nextTitle">
+                    Finding your next class…
+                </div>
+
+                <div
+                    class="next-sub"
+                    id="nextSub">
+                    Your selected courses only
+                </div>
+
+            </div>
+
+            <div
+                class="count"
+                id="classCount">
+                0 classes
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TODAY -->
+
+    <div id="viewToday">
+
+        <div class="section-title">
+
+            <h2>
+                Today
+            </h2>
+
+            <span id="todayLabel"></span>
+
+        </div>
+
+        <div id="todayList"></div>
+
+    </div>
+
+
+    <!-- WEEK -->
+
+    <div
+        id="viewWeek"
+        class="hidden">
+
+        <div class="section-title">
+
+            <h2>
+                Week view
+            </h2>
+
+            <span>
+                Weeks 7–13
+            </span>
+
+        </div>
+
+
+        <div class="controls">
+
+            <select
+                class="select"
+                id="weekSelect"
+                aria-label="Choose week">
+            </select>
+
+
+            <select
+                class="select"
+                id="courseFilter"
+                aria-label="Filter course">
+
+                <option value="ALL">
+                    All courses
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <input
+            class="search"
+            id="search"
+            type="search"
+            placeholder="Search course, professor or room"
+            aria-label="Search timetable">
+
+
+        <div id="weekList"></div>
+
+    </div>
+
+
+    <!-- COURSES -->
+
+    <div
+        id="viewCourses"
+        class="hidden">
+
+        <div class="section-title">
+
+            <h2>
+                My courses
+            </h2>
+
+            <span>
+                5 selected courses
+            </span>
+
+        </div>
+
+        <div id="courseList"></div>
+
+    </div>
+
+
+    <!-- HOLIDAYS -->
+
+    <div
+        id="viewHolidays"
+        class="hidden">
+
+        <div class="section-title">
+
+            <h2>
+                Holidays
+            </h2>
+
+            <span>
+                From timetable
+            </span>
+
+        </div>
+
+        <div id="holidayList"></div>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav
+        class="nav"
+        aria-label="Main navigation">
+
+        <button
+            class="active"
+            data-view="Today">
+            Today
+        </button>
+
+        <button
+            data-view="Week">
+            Week
+        </button>
+
+        <button
+            data-view="Courses">
+            Courses
+        </button>
+
+        <button
+            data-view="Holidays">
+            Holidays
+        </button>
+
+    </nav>
+
 </div>
 
+
 <script>
-  const facultyMap = {
-    "WMAI-1": "Prof. Tarun K Soni",
-    "FD": "Prof. Vikas Pandey",
-    "BSRR-1": "Prof. Vandana Gupta",
-    "SDRM-1": "Prof. Qazi Asif Zameer",
-    "AIM-1": "Prof. Ashutosh Pandey"
-  };
 
-  const scheduleData = {
-    "Week 7": [
-      { day: "Mon 24-08", slots: [
-        { sub: "WMAI-1", cr: "CR-6" },
-        { sub: "BSRR-1", cr: "Pragya" },
-        null,
-        { sub: "SDRM-1", cr: "CR-6" },
-        { sub: "FD", cr: "CR-7" },
-        null, null
-      ]},
-      { day: "Tue 25-08", slots: [
-        null,
-        { sub: "SDRM-1", cr: "CR-6" },
-        null, null, null, null, null
-      ]},
-      { day: "Wed 26-08", holiday: "Id-e-Milad Holiday" },
-      { day: "Thu 27-08", slots: [
-        null,
-        { sub: "AIM-1", cr: "CR-17" },
-        null,
-        { sub: "WMAI-1", cr: "Pragya" },
-        null, null, null
-      ]},
-      { day: "Fri 28-08", holiday: "Rakshabandhan Holiday" },
-      { day: "Sat 29-08", slots: [null, null, null, null, null, null, null] },
-      { day: "Sun 30-08", slots: [null, null, null, null, null, null, null] }
-    ],
-    "Week 8": [
-      { day: "Mon 31-08", slots: [
-        null,
-        { sub: "SDRM-1", cr: "CR-6" },
-        null,
-        { sub: "FD", cr: "CR-7" },
-        null, null, null
-      ]},
-      { day: "Tue 01-09", slots: [
-        null,
-        { sub: "SDRM-1", cr: "CR-7" },
-        null,
-        { sub: "AIM-1", cr: "CR-7" },
-        null, null, null
-      ]},
-      { day: "Wed 02-09", slots: [
-        { sub: "BSRR-1", cr: "Audi" },
-        null, null,
-        { sub: "FD", cr: "CR-6" },
-        null, null, null
-      ]},
-      { day: "Thu 03-09", slots: [
-        null, null, null,
-        { sub: "WMAI-1", cr: "CR-17" },
-        null, null, null
-      ]},
-      { day: "Fri 04-09", slots: [null, null, null, null, null, null, null] },
-      { day: "Sat 05-09", slots: [null, null, null, null, null, null, null] },
-      { day: "Sun 06-09", slots: [null, null, null, null, null, null, null] }
-    ],
-    "Week 9": [
-      { day: "Mon 07-09", slots: [
-        null, null,
-        { sub: "FD", cr: "CR-6" },
-        null, null, null, null
-      ]},
-      { day: "Tue 08-09", slots: [
-        { sub: "SDRM-1", cr: "CR-7" },
-        null, null, null, null, null, null
-      ]},
-      { day: "Wed 09-09", slots: [
-        null, null,
-        { sub: "FD", cr: "CR-7" },
-        null,
-        { sub: "AIM-1", cr: "CR-7" },
-        null, null
-      ]},
-      { day: "Thu 10-09", slots: [
-        null, null,
-        { sub: "BSRR-1", cr: "CR-6" },
-        null,
-        { sub: "WMAI-1", cr: "CR-17" },
-        null, null
-      ]},
-      { day: "Fri 11-09", slots: [
-        null,
-        { sub: "WMAI-1", cr: "CR-7" },
-        null, null, null, null, null
-      ]},
-      { day: "Sat 12-09", slots: [null, null, null, null, null, null, null] },
-      { day: "Sun 13-09", slots: [null, null, null, null, null, null, null] }
-    ],
-    "Week 10": [
-      { day: "Mon 14-09", slots: [null, null, null, null, null, null, null] },
-      { day: "Tue 15-09", slots: [
-        { sub: "SDRM-1", cr: "CR-7" },
-        null, null,
-        { sub: "AIM-1", cr: "CR-6" },
-        null, null, null
-      ]},
-      { day: "Wed 16-09", slots: [
-        null,
-        { sub: "AIM-1", cr: "CR-6" },
-        null, null, null, null, null
-      ]},
-      { day: "Thu 17-09", slots: [
-        { sub: "FD", cr: "CR-7" },
-        null,
-        { sub: "WMAI-1", cr: "CR-6" },
-        null, null, null, null
-      ]},
-      { day: "Fri 18-09", slots: [
-        null,
-        { sub: "SDRM-1", cr: "CR-17" },
-        null,
-        { sub: "FD", cr: "CR-17" },
-        null, null, null
-      ]},
-      { day: "Sat 19-09", slots: [null, null, null, null, null, null, null] },
-      { day: "Sun 20-09", slots: [
-        null,
-        { sub: "WMAI-1", cr: "CR-7" },
-        null, null, null, null, null
-      ]}
-    ],
-    "Week 11": [
-      { day: "Mon 21-09", slots: [
-        { sub: "FD", cr: "CR-7" },
-        { sub: "WMAI-1", cr: "CR-6" },
-        null,
-        { sub: "AIM-1", cr: "CR-7" },
-        null, null, null
-      ]},
-      { day: "Tue 22-09", slots: [
-        { sub: "SDRM-1", cr: "CR-7" },
-        null, null,
-        { sub: "FD", cr: "CR-7" },
-        null, null, null
-      ]},
-      { day: "Wed 23-09", slots: [
-        { sub: "AIM-1", cr: "CR-6" },
-        null, null, null, null, null, null
-      ]},
-      { day: "Thu 24-09", slots: [
-        null,
-        { sub: "FD", cr: "CR-6" },
-        null, null, null, null, null
-      ]},
-      { day: "Fri 25-09", slots: [
-        null,
-        { sub: "WMAI-1", cr: "CR-7" },
-        null,
-        { sub: "SDRM-1", cr: "CR-6" },
-        null, null, null
-      ]},
-      { day: "Sat 26-09", slots: [null, null, null, null, null, null, null] },
-      { day: "Sun 27-09", slots: [null, null, null, null, null, null, null] }
-    ],
-    "Week 12": [
-      { day: "Mon 28-09", slots: [null, null, null, null, null, null, null] },
-      { day: "Tue 29-09", slots: [null, null, null, null, null, null, null] },
-      { day: "Wed 30-09", slots: [
-        null,
-        { sub: "BSRR-1", cr: "Pragya" },
-        null, null, null, null, null
-      ]},
-      { day: "Thu 01-10", slots: [
-        null, null, null,
-        { sub: "SDRM-1", cr: "CR-6" },
-        null, null, null
-      ]},
-      { day: "Fri 02-10", holiday: "Mahatma Gandhi's Birthday Holiday" },
-      { day: "Sat 03-10", slots: [null, null, null, null, null, null, null] },
-      { day: "Sun 04-10", slots: [null, null, null, null, null, null, null] }
-    ],
-    "Week 13": [
-      { day: "Mon 05-10", slots: [
-        null, null, null, null,
-        { sub: "WMAI-1", cr: "CR-17" },
-        null, null
-      ]},
-      { day: "Tue 06-10", slots: [
-        null,
-        { sub: "BSRR-1", cr: "CR-7" },
-        null, null, null, null, null
-      ]},
-      { day: "Wed 07-10", slots: [null, null, null, null, null, null, null] },
-      { day: "Thu 08-10", slots: [
-        null,
-        { sub: "BSRR-1", cr: "CR-6" },
-        { sub: "WMAI-1", cr: "CR-7" },
-        null, null, null, null
-      ]},
-      { day: "Fri 09-10", slots: [
-        null, null,
-        { sub: "BSRR-1", cr: "CR-17" },
-        null, null, null, null
-      ]},
-      { day: "Sat 10-10", slots: [null, null, null, null, null, null, null] },
-      { day: "Sun 11-10", slots: [null, null, null, null, null, null, null] }
-    ]
-  };
+/* =====================================================
+   YOUR TIMETABLE DATA
+   ===================================================== */
 
-  let currentWeek = "Week 7";
+const DATA = [
 
-  function renderButtons() {
-    const controls = document.getElementById("weekControls");
-    controls.innerHTML = "";
-    Object.keys(scheduleData).forEach(week => {
-      const btn = document.createElement("button");
-      btn.className = `week-btn ${week === currentWeek ? 'active' : ''}`;
-      btn.textContent = week;
-      btn.onclick = () => {
-        currentWeek = week;
-        renderButtons();
-        renderTable();
-      };
-      controls.appendChild(btn);
+/* ================= WEEK 7 ================= */
+
+{
+    date:"2026-08-24",
+    day:"Monday",
+    code:"WMAI-1",
+    subject:"Wealth Management and Alternate Investments",
+    prof:"Prof. Tarun K Soni",
+    short:"TKS",
+    room:"CR-6",
+    start:"12:00 PM",
+    end:"1:30 PM",
+    week:"Week 7"
+},
+
+{
+    date:"2026-08-24",
+    day:"Monday",
+    code:"FD",
+    subject:"Financial Derivatives",
+    prof:"Prof. Vikas Pandey",
+    short:"VP",
+    room:"CR-7",
+    start:"5:30 PM",
+    end:"7:00 PM",
+    week:"Week 7"
+},
+
+{
+    date:"2026-08-25",
+    day:"Tuesday",
+    code:"BSRR-1",
+    subject:"Banking: Strategy Risks and Regulations",
+    prof:"Prof. Vandana Gupta",
+    short:"VG",
+    room:"Pragy",
+    start:"12:00 PM",
+    end:"1:30 PM",
+    week:"Week 7"
+},
+
+{
+    date:"2026-08-25",
+    day:"Tuesday",
+    code:"SDRM-1",
+    subject:"Sales, Distribution and Retail Management",
+    prof:"Prof. Qazi Asif Zameer",
+    short:"QZ",
+    room:"CR-6",
+    start:"3:50 PM",
+    end:"5:20 PM",
+    week:"Week 7"
+},
+
+{
+    date:"2026-08-27",
+    day:"Thursday",
+    code:"AIM-1",
+    subject:"Artificial Intelligence and Marketing",
+    prof:"Prof. Ashutosh Pandey",
+    short:"AP",
+    room:"CR-1",
+    start:"2:10 PM",
+    end:"3:40 PM",
+    week:"Week 7"
+},
+
+{
+    date:"2026-08-27",
+    day:"Thursday",
+    code:"WMAI-1",
+    subject:"Wealth Management and Alternate Investments",
+    prof:"Prof. Tarun K Soni",
+    short:"TKS",
+    room:"Pragy",
+    start:"5:30 PM",
+    end:"7:00 PM",
+    week:"Week 7"
+},
+
+
+/* ================= WEEK 8 ================= */
+
+{
+    date:"2026-08-31",
+    day:"Monday",
+    code:"FD",
+    subject:"Financial Derivatives",
+    prof:"Prof. Vikas Pandey",
+    short:"VP",
+    room:"CR-7",
+    start:"3:50 PM",
+    end:"5:20 PM",
+    week:"Week 8"
+},
+
+{
+    date:"2026-09-01",
+    day:"Tuesday",
+    code:"SDRM-1",
+    subject:"Sales, Distribution and Retail Management",
+    prof:"Prof. Qazi Asif Zameer",
+    short:"QZ",
+    room:"CR-6",
+    start:"2:10 PM",
+    end:"3:40 PM",
+    week:"Week 8"
+},
+
+{
+    date:"2026-09-01",
+    day:"Tuesday",
+    code:"AIM-1",
+    subject:"Artificial Intelligence and Marketing",
+    prof:"Prof. Ashutosh Pandey",
+    short:"AP",
+    room:"CR-7",
+    start:"5:30 PM",
+    end:"7:00 PM",
+    week:"Week 8"
+},
+
+{
+    date:"2026-09-02",
+    day:"Wednesday",
+    code:"FD",
+    subject:"Financial Derivatives",
+    prof:"Prof. Vikas Pandey",
+    short:"VP",
+    room:"CR-6",
+    start:"3:50 PM",
+    end:"5:20 PM",
+    week:"Week 8"
+},
+
+{
+    date:"2026-09-03",
+    day:"Thursday",
+    code:"BSRR-1",
+    subject:"Banking: Strategy Risks and Regulations",
+    prof:"Prof. Vandana Gupta",
+    short:"VG",
+    room:"Audi",
+    start:"10:20 AM",
+    end:"11:50 AM",
+    week:"Week 8"
+},
+
+
+/* ================= WEEK 9 ================= */
+
+{
+    date:"2026-09-08",
+    day:"Tuesday",
+    code:"SDRM-1",
+    subject:"Sales, Distribution and Retail Management",
+    prof:"Prof. Qazi Asif Zameer",
+    short:"QZ",
+    room:"CR-7",
+    start:"8:30 AM",
+    end:"10:00 AM",
+    week:"Week 9"
+},
+
+{
+    date:"2026-09-09",
+    day:"Wednesday",
+    code:"FD",
+    subject:"Financial Derivatives",
+    prof:"Prof. Vikas Pandey",
+    short:"VP",
+    room:"CR-6",
+    start:"2:10 PM",
+    end:"3:40 PM",
+    week:"Week 9"
+},
+
+{
+    date:"2026-09-09",
+    day:"Wednesday",
+    code:"AIM-1",
+    subject:"Artificial Intelligence and Marketing",
+    prof:"Prof. Ashutosh Pandey",
+    short:"AP",
+    room:"CR-7",
+    start:"7:00 PM",
+    end:"8:30 PM",
+    week:"Week 9"
+},
+
+{
+    date:"2026-09-10",
+    day:"Thursday",
+    code:"WMAI-1",
+    subject:"Wealth Management and Alternate Investments",
+    prof:"Prof. Tarun K Soni",
+    short:"TKS",
+    room:"CR-17",
+    start:"3:50 PM",
+    end:"5:20 PM",
+    week:"Week 9"
+},
+
+
+/* ================= WEEK 10 ================= */
+
+{
+    date:"2026-09-15",
+    day:"Tuesday",
+    code:"SDRM-1",
+    subject:"Sales, Distribution and Retail Management",
+    prof:"Prof. Qazi Asif Zameer",
+    short:"QZ",
+    room:"CR-7",
+    start:"10:20 AM",
+    end:"11:50 AM",
+    week:"Week 10"
+},
+
+{
+    date:"2026-09-15",
+    day:"Tuesday",
+    code:"FD",
+    subject:"Financial Derivatives",
+    prof:"Prof. Vikas Pandey",
+    short:"VP",
+    room:"CR-17",
+    start:"5:30 PM",
+    end:"7:00 PM",
+    week:"Week 10"
+},
+
+{
+    date:"2026-09-16",
+    day:"Wednesday",
+    code:"AIM-1",
+    subject:"Artificial Intelligence and Marketing",
+    prof:"Prof. Ashutosh Pandey",
+    short:"AP",
+    room:"CR-6",
+    start:"12:00 PM",
+    end:"1:30 PM",
+    week:"Week 10"
+},
+
+{
+    date:"2026-09-18",
+    day:"Friday",
+    code:"FD",
+    subject:"Financial Derivatives",
+    prof:"Prof. Vikas Pandey",
+    short:"VP",
+    room:"CR-7",
+    start:"10:20 AM",
+    end:"11:50 AM",
+    week:"Week 10"
+},
+
+{
+    date:"2026-09-18",
+    day:"Friday",
+    code:"SDRM-1",
+    subject:"Sales, Distribution and Retail Management",
+    prof:"Prof. Qazi Asif Zameer",
+    short:"QZ",
+    room:"CR-7",
+    start:"3:50 PM",
+    end:"5:20 PM",
+    week:"Week 10"
+},
+
+
+/* ================= WEEK 11 ================= */
+
+{
+    date:"2026-09-21",
+    day:"Monday",
+    code:"WMAI-1",
+    subject:"Wealth Management and Alternate Investments",
+    prof:"Prof. Tarun K Soni",
+    short:"TKS",
+    room:"CR-6",
+    start:"2:10 PM",
+    end:"3:40 PM",
+    week:"Week 11"
+},
+
+{
+    date:"2026-09-21",
+    day:"Monday",
+    code:"AIM-1",
+    subject:"Artificial Intelligence and Marketing",
+    prof:"Prof. Ashutosh Pandey",
+    short:"AP",
+    room:"CR-7",
+    start:"5:30 PM",
+    end:"7:00 PM",
+    week:"Week 11"
+},
+
+{
+    date:"2026-09-22",
+    day:"Tuesday",
+    code:"SDRM-1",
+    subject:"Sales, Distribution and Retail Management",
+    prof:"Prof. Qazi Asif Zameer",
+    short:"QZ",
+    room:"CR-7",
+    start:"10:20 AM",
+    end:"11:50 AM",
+    week:"Week 11"
+},
+
+{
+    date:"2026-09-23",
+    day:"Wednesday",
+    code:"AIM-1",
+    subject:"Artificial Intelligence and Marketing",
+    prof:"Prof. Ashutosh Pandey",
+    short:"AP",
+    room:"CR-6",
+    start:"8:30 AM",
+    end:"10:00 AM",
+    week:"Week 11"
+},
+
+{
+    date:"2026-09-23",
+    day:"Wednesday",
+    code:"FD",
+    subject:"Financial Derivatives",
+    prof:"Prof. Vikas Pandey",
+    short:"VP",
+    room:"CR-6",
+    start:"3:50 PM",
+    end:"5:20 PM",
+    week:"Week 11"
+},
+
+{
+    date:"2026-09-25",
+    day:"Friday",
+    code:"WMAI-1",
+    subject:"Wealth Management and Alternate Investments",
+    prof:"Prof. Tarun K Soni",
+    short:"TKS",
+    room:"CR-7",
+    start:"12:00 PM",
+    end:"1:30 PM",
+    week:"Week 11"
+},
+
+{
+    date:"2026-09-25",
+    day:"Friday",
+    code:"SDRM-1",
+    subject:"Sales, Distribution and Retail Management",
+    prof:"Prof. Qazi Asif Zameer",
+    short:"QZ",
+    room:"CR-6",
+    start:"3:50 PM",
+    end:"5:20 PM",
+    week:"Week 11"
+},
+
+
+/* ================= WEEK 12 ================= */
+
+{
+    date:"2026-09-30",
+    day:"Wednesday",
+    code:"BSRR-1",
+    subject:"Banking: Strategy Risks and Regulations",
+    prof:"Prof. Vandana Gupta",
+    short:"VG",
+    room:"Pragy",
+    start:"12:00 PM",
+    end:"1:30 PM",
+    week:"Week 12"
+},
+
+{
+    date:"2026-10-01",
+    day:"Thursday",
+    code:"SDRM-1",
+    subject:"Sales, Distribution and Retail Management",
+    prof:"Prof. Qazi Asif Zameer",
+    short:"QZ",
+    room:"CR-6",
+    start:"3:50 PM",
+    end:"5:20 PM",
+    week:"Week 12"
+},
+
+
+/* ================= WEEK 13 ================= */
+
+{
+    date:"2026-10-05",
+    day:"Monday",
+    code:"WMAI-1",
+    subject:"Wealth Management and Alternate Investments",
+    prof:"Prof. Tarun K Soni",
+    short:"TKS",
+    room:"CR-17",
+    start:"5:30 PM",
+    end:"7:00 PM",
+    week:"Week 13"
+},
+
+{
+    date:"2026-10-06",
+    day:"Tuesday",
+    code:"BSRR-1",
+    subject:"Banking: Strategy Risks and Regulations",
+    prof:"Prof. Vandana Gupta",
+    short:"VG",
+    room:"CR-7",
+    start:"12:00 PM",
+    end:"1:30 PM",
+    week:"Week 13"
+},
+
+{
+    date:"2026-10-08",
+    day:"Thursday",
+    code:"BSRR-1",
+    subject:"Banking: Strategy Risks and Regulations",
+    prof:"Prof. Vandana Gupta",
+    short:"VG",
+    room:"CR-6",
+    start:"10:20 AM",
+    end:"11:50 AM",
+    week:"Week 13"
+},
+
+{
+    date:"2026-10-08",
+    day:"Thursday",
+    code:"WMAI-1",
+    subject:"Wealth Management and Alternate Investments",
+    prof:"Prof. Tarun K Soni",
+    short:"TKS",
+    room:"CR-7",
+    start:"12:00 PM",
+    end:"1:30 PM",
+    week:"Week 13"
+}
+
+];
+
+
+/* =====================================================
+   COURSES
+   ===================================================== */
+
+const COURSES = [
+
+[
+    "WMAI-1",
+    "Wealth Management and Alternate Investments",
+    "Prof. Tarun K Soni",
+    "TKS"
+],
+
+[
+    "BSRR-1",
+    "Banking: Strategy Risks and Regulations",
+    "Prof. Vandana Gupta",
+    "VG"
+],
+
+[
+    "FD",
+    "Financial Derivatives",
+    "Prof. Vikas Pandey",
+    "VP"
+],
+
+[
+    "AIM-1",
+    "Artificial Intelligence and Marketing",
+    "Prof. Ashutosh Pandey",
+    "AP"
+],
+
+[
+    "SDRM-1",
+    "Sales, Distribution and Retail Management",
+    "Prof. Qazi Asif Zameer",
+    "QZ"
+]
+
+];
+
+
+/* =====================================================
+   HOLIDAYS
+   ===================================================== */
+
+const HOLIDAYS = [
+
+[
+    "2026-08-26",
+    "Id-e-Milad",
+    "Holiday"
+],
+
+[
+    "2026-08-28",
+    "Rakshabandhan",
+    "Holiday"
+],
+
+[
+    "2026-10-02",
+    "Mahatama Gandhi's Birthday",
+    "Holiday"
+]
+
+];
+
+
+/* =====================================================
+   DATE FUNCTIONS
+   ===================================================== */
+
+function parseDate(dateString) {
+
+    const [
+        year,
+        month,
+        day
+    ] = dateString
+        .split("-")
+        .map(Number);
+
+    return new Date(
+        Date.UTC(
+            year,
+            month - 1,
+            day
+        )
+    );
+}
+
+
+function dateKey() {
+
+    return new Intl.DateTimeFormat(
+        "en-CA",
+        {
+            timeZone: "Asia/Kolkata",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+        }
+    ).format(new Date());
+}
+
+
+function formatDate(
+    dateString,
+    options = {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+    }
+) {
+
+    return new Intl.DateTimeFormat(
+        "en-IN",
+        {
+            timeZone: "Asia/Kolkata",
+            ...options
+        }
+    ).format(
+        parseDate(dateString)
+    );
+}
+
+
+/* =====================================================
+   LIVE 12-HOUR CLOCK
+   ===================================================== */
+
+function formatClock() {
+
+    return new Intl.DateTimeFormat(
+        "en-IN",
+        {
+            timeZone: "Asia/Kolkata",
+            hour: "numeric",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: true
+        }
+    ).format(new Date());
+
+}
+
+
+/* =====================================================
+   CONVERT TIME TO MINUTES
+   ===================================================== */
+
+function minutes(time) {
+
+    const match =
+        time.match(
+            /(\d+):(\d+)\s*(AM|PM)/i
+        );
+
+    if (!match)
+        return 0;
+
+    let hour = Number(match[1]);
+
+    const minute =
+        Number(match[2]);
+
+    const period =
+        match[3].toUpperCase();
+
+    if (
+        period === "AM" &&
+        hour === 12
+    ) {
+        hour = 0;
+    }
+
+    if (
+        period === "PM" &&
+        hour !== 12
+    ) {
+        hour += 12;
+    }
+
+    return (
+        hour * 60 +
+        minute
+    );
+}
+
+
+/* =====================================================
+   CREATE CLASS CARD
+   ===================================================== */
+
+function card(item) {
+
+    const today =
+        item.date === dateKey();
+
+    return `
+
+    <article
+        class="card ${today ? "today" : ""}">
+
+        <div class="time">
+
+            <strong>
+                ${item.start}
+            </strong>
+
+            <small>
+                to ${item.end}
+            </small>
+
+        </div>
+
+
+        <div class="info">
+
+            <div class="code">
+                ${item.code}
+            </div>
+
+            <div class="subject">
+                ${item.subject}
+            </div>
+
+
+            <div class="meta">
+
+                <span class="pill">
+                    ${item.prof}
+                </span>
+
+                <span class="pill">
+                    ${item.room}
+                </span>
+
+                <span class="pill">
+                    ${item.week}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <span
+            class="dot"
+            aria-hidden="true">
+        </span>
+
+    </article>
+
+    `;
+}
+
+
+/* =====================================================
+   GROUP CLASSES BY DATE
+   ===================================================== */
+
+function grouped(items) {
+
+    const result = {};
+
+    items.forEach(item => {
+
+        if (!result[item.date]) {
+
+            result[item.date] = [];
+
+        }
+
+        result[item.date].push(item);
+
     });
-  }
 
-  function renderTable() {
-    const tbody = document.getElementById("timetableBody");
-    tbody.innerHTML = "";
-    const days = scheduleData[currentWeek];
 
-    days.forEach(dayInfo => {
-      const tr = document.createElement("tr");
-      const dayTd = document.createElement("td");
-      dayTd.className = "day-col";
-      dayTd.textContent = dayInfo.day;
-      tr.appendChild(dayTd);
+    Object.values(result)
+        .forEach(list => {
 
-      if (dayInfo.holiday) {
-        const holidayTd = document.createElement("td");
-        holidayTd.colSpan = 7;
-        holidayTd.className = "slot-holiday";
-        holidayTd.textContent = `🌴 ${dayInfo.holiday}`;
-        tr.appendChild(holidayTd);
-      } else {
-        dayInfo.slots.forEach(slot => {
-          const td = document.createElement("td");
-          if (slot) {
-            td.innerHTML = `
-              <div class="slot-class">
-                <div class="subject">${slot.sub}</div>
-                <div class="room">${slot.cr}</div>
-                <div class="faculty">${facultyMap[slot.sub]}</div>
-              </div>
-            `;
-          } else {
-            td.innerHTML = `<span class="slot-free">—</span>`;
-          }
-          tr.appendChild(td);
+            list.sort(
+                (a,b) =>
+                    minutes(a.start) -
+                    minutes(b.start)
+            );
+
         });
-      }
-      tbody.appendChild(tr);
-    });
-  }
 
-  renderButtons();
-  renderTable();
+    return result;
+}
+
+
+/* =====================================================
+   TODAY
+   ===================================================== */
+
+function renderToday() {
+
+    const today =
+        dateKey();
+
+    const list =
+        DATA
+            .filter(
+                item =>
+                    item.date === today
+            )
+            .sort(
+                (a,b) =>
+                    minutes(a.start) -
+                    minutes(b.start)
+            );
+
+
+    document.getElementById(
+        "todayLabel"
+    ).textContent =
+        formatDate(
+            today,
+            {
+                weekday: "long",
+                month: "long",
+                day: "numeric"
+            }
+        );
+
+
+    if (list.length) {
+
+        document.getElementById(
+            "todayList"
+        ).innerHTML =
+            list.map(card).join("");
+
+    } else {
+
+        const holiday =
+            HOLIDAYS.some(
+                h => h[0] === today
+            );
+
+
+        document.getElementById(
+            "todayList"
+        ).innerHTML = `
+
+        <div class="empty">
+
+            ${
+                holiday
+                ? "Holiday — no selected classes today."
+                : "No selected classes today."
+            }
+
+        </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   WEEK VIEW
+   ===================================================== */
+
+function renderWeek() {
+
+    const week =
+        state.week;
+
+
+    let list =
+        DATA.filter(
+            item =>
+                item.week === week
+        );
+
+
+    if (
+        state.course !== "ALL"
+    ) {
+
+        list =
+            list.filter(
+                item =>
+                    item.code ===
+                    state.course
+            );
+
+    }
+
+
+    const search =
+        state.search
+            .trim()
+            .toLowerCase();
+
+
+    if (search) {
+
+        list =
+            list.filter(
+                item => {
+
+                    const text =
+                        `
+                        ${item.code}
+                        ${item.subject}
+                        ${item.prof}
+                        ${item.room}
+                        `
+                        .toLowerCase();
+
+                    return text.includes(
+                        search
+                    );
+
+                }
+            );
+
+    }
+
+
+    const groups =
+        grouped(list);
+
+
+    const dates =
+        Object.keys(groups)
+            .sort();
+
+
+    if (!dates.length) {
+
+        document.getElementById(
+            "weekList"
+        ).innerHTML = `
+
+        <div class="empty">
+
+            No matching classes
+            in ${week}.
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+
+    document.getElementById(
+        "weekList"
+    ).innerHTML =
+
+        dates.map(date => `
+
+        <section class="day">
+
+            <div class="day-head">
+
+                <span class="day-name">
+                    ${
+                        formatDate(
+                            date,
+                            {
+                                weekday: "long"
+                            }
+                        )
+                    }
+                </span>
+
+                <span class="day-date">
+                    ${formatDate(date)}
+                </span>
+
+            </div>
+
+
+            ${
+                groups[date]
+                    .map(card)
+                    .join("")
+            }
+
+        </section>
+
+        `).join("");
+
+}
+
+
+/* =====================================================
+   COURSES PAGE
+   ===================================================== */
+
+function renderCourses() {
+
+    document.getElementById(
+        "courseList"
+    ).innerHTML =
+
+        COURSES.map(course => {
+
+            const count =
+                DATA.filter(
+                    item =>
+                        item.code ===
+                        course[0]
+                ).length;
+
+
+            return `
+
+            <article class="course">
+
+                <div class="course-top">
+
+                    <div class="course-code">
+                        ${course[0]}
+                    </div>
+
+                    <div class="course-prof">
+
+                        ${course[2]}
+
+                        <br>
+
+                        ${course[3]}
+
+                    </div>
+
+                </div>
+
+
+                <div class="course-name">
+
+                    ${course[1]}
+
+                </div>
+
+
+                <div class="course-count">
+
+                    ${count}
+                    classes in Weeks 7–13
+
+                </div>
+
+            </article>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =====================================================
+   HOLIDAYS
+   ===================================================== */
+
+function renderHolidays() {
+
+    document.getElementById(
+        "holidayList"
+    ).innerHTML =
+
+        HOLIDAYS.map(
+            holiday => `
+
+            <article class="holiday">
+
+                <div class="holiday-date">
+
+                    ${
+                        formatDate(
+                            holiday[0],
+                            {
+                                weekday: "long",
+                                month: "long",
+                                day: "numeric"
+                            }
+                        )
+                    }
+
+                </div>
+
+
+                <div class="holiday-name">
+
+                    ${holiday[1]}
+
+                </div>
+
+
+                <div class="holiday-type">
+
+                    ${holiday[2]}
+
+                </div>
+
+            </article>
+
+            `
+        ).join("");
+
+}
+
+
+/* =====================================================
+   FIND NEXT CLASS
+   ===================================================== */
+
+function findNext() {
+
+    const today =
+        dateKey();
+
+
+    const sorted =
+        [...DATA].sort(
+            (a,b) => {
+
+                if (
+                    a.date !==
+                    b.date
+                ) {
+
+                    return a.date.localeCompare(
+                        b.date
+                    );
+
+                }
+
+                return (
+                    minutes(a.start) -
+                    minutes(b.start)
+                );
+
+            }
+        );
+
+
+    const currentTime =
+        new Date();
+
+
+    const currentHour =
+        Number(
+            new Intl.DateTimeFormat(
+                "en-IN",
+                {
+                    timeZone:
+                        "Asia/Kolkata",
+
+                    hour:
+                        "2-digit",
+
+                    hour12:false
+                }
+            ).format(currentTime)
+        );
+
+
+    const currentMinute =
+        Number(
+            new Intl.DateTimeFormat(
+                "en-IN",
+                {
+                    timeZone:
+                        "Asia/Kolkata",
+
+                    minute:
+                        "2-digit",
+
+                    hour12:false
+                }
+            ).format(currentTime)
+        );
+
+
+    const currentMinutes =
+        currentHour * 60 +
+        currentMinute;
+
+
+    let next =
+        sorted.find(
+            item =>
+
+                item.date > today ||
+
+                (
+                    item.date === today &&
+                    minutes(item.start) >
+                    currentMinutes
+                )
+        );
+
+
+    if (!next) {
+
+        next = sorted[0];
+
+    }
+
+
+    document.getElementById(
+        "heroDate"
+    ).textContent =
+
+        next.date === today
+
+        ? "NEXT CLASS"
+
+        : formatDate(
+            next.date,
+            {
+                weekday:"short",
+                month:"short",
+                day:"numeric"
+            }
+        );
+
+
+    document.getElementById(
+        "nextTitle"
+    ).textContent =
+
+        `${next.code} · ${next.start}`;
+
+
+    document.getElementById(
+        "nextSub"
+    ).textContent =
+
+        `${next.prof} · ${next.room}`;
+
+
+    document.getElementById(
+        "classCount"
+    ).textContent =
+
+        `${DATA.length} classes`;
+
+}
+
+
+/* =====================================================
+   CHANGE VIEW
+   ===================================================== */
+
+function setView(view) {
+
+    state.view =
+        view;
+
+
+    [
+        "Today",
+        "Week",
+        "Courses",
+        "Holidays"
+    ]
+    .forEach(name => {
+
+        document
+            .getElementById(
+                "view" + name
+            )
+            .classList.toggle(
+                "hidden",
+                name !== view
+            );
+
+
+        document
+            .querySelector(
+                `[data-view="${name}"]`
+            )
+            .classList.toggle(
+                "active",
+                name === view
+            );
+
+    });
+
+}
+
+
+/* =====================================================
+   STATE
+   ===================================================== */
+
+const state = {
+
+    view: "Today",
+
+    week: "Week 7",
+
+    course: "ALL",
+
+    search: ""
+
+};
+
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+
+document
+    .querySelectorAll(
+        ".nav button"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                setView(
+                    button.dataset.view
+                );
+
+            }
+        );
+
+    });
+
+
+/* =====================================================
+   WEEK SELECT
+   ===================================================== */
+
+document
+    .getElementById(
+        "weekSelect"
+    )
+    .addEventListener(
+        "change",
+        event => {
+
+            state.week =
+                event.target.value;
+
+            renderWeek();
+
+        }
+    );
+
+
+/* =====================================================
+   COURSE FILTER
+   ===================================================== */
+
+document
+    .getElementById(
+        "courseFilter"
+    )
+    .addEventListener(
+        "change",
+        event => {
+
+            state.course =
+                event.target.value;
+
+            renderWeek();
+
+        }
+    );
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+document
+    .getElementById(
+        "search"
+    )
+    .addEventListener(
+        "input",
+        event => {
+
+            state.search =
+                event.target.value;
+
+            renderWeek();
+
+        }
+    );
+
+
+/* =====================================================
+   POPULATE WEEK SELECT
+   ===================================================== */
+
+const weeks =
+    [
+        ...new Set(
+            DATA.map(
+                item =>
+                    item.week
+            )
+        )
+    ];
+
+
+document.getElementById(
+    "weekSelect"
+).innerHTML =
+
+    weeks.map(
+        week =>
+            `<option>
+                ${week}
+            </option>`
+    ).join("");
+
+
+/* =====================================================
+   POPULATE COURSE SELECT
+   ===================================================== */
+
+document.getElementById(
+    "courseFilter"
+).innerHTML +=
+
+    COURSES.map(
+        course =>
+
+            `<option
+                value="${course[0]}">
+
+                ${course[0]}
+
+            </option>`
+
+    ).join("");
+
+
+/* =====================================================
+   INITIAL RENDER
+   ===================================================== */
+
+function render() {
+
+    document.getElementById(
+        "clock"
+    ).textContent =
+        formatClock();
+
+
+    findNext();
+
+    renderToday();
+
+    renderWeek();
+
+    renderCourses();
+
+    renderHolidays();
+
+}
+
+
+render();
+
+
+/* =====================================================
+   UPDATE CLOCK EVERY SECOND
+   ===================================================== */
+
+setInterval(
+    () => {
+
+        document.getElementById(
+            "clock"
+        ).textContent =
+            formatClock();
+
+
+        findNext();
+
+    },
+    1000
+);
+
 </script>
+
 </body>
 </html>
