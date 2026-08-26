@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Customized Timetable</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --secondary: #3b82f6;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --holiday-bg: #fee2e2;
+      --holiday-text: #991b1b;
+      --class-bg: #eff6ff;
+      --class-border: #bfdbfe;
+      --free-bg: #f1f5f9;
+      --free-text: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .week-btn {
+      padding: 8px 16px;
+      border: 1px solid var(--secondary);
+      background: #ffffff;
+      color: var(--secondary);
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .week-btn:hover {
+      background: var(--class-bg);
+    }
+
+    .week-btn.active {
+      background: var(--secondary);
+      color: #ffffff;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      overflow-x: auto;
+      padding: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+    }
+
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 12px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      color: var(--text);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .day-col {
+      font-weight: 600;
+      background-color: #f8fafc;
+      width: 110px;
+    }
+
+    .slot-class {
+      background-color: var(--class-bg);
+      border: 1.5px solid var(--class-border);
+      border-radius: 6px;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .slot-class .subject {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+
+    .slot-class .room {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin: 4px 0;
+    }
+
+    .slot-class .faculty {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .slot-holiday {
+      background-color: var(--holiday-bg);
+      color: var(--holiday-text);
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 12px;
+    }
+
+    .slot-free {
+      color: var(--free-text);
+      font-style: italic;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Personalized Class Timetable</h1>
+    <p class="subtitle">Enrolled: WMAI-1, FD, BSRR-1, SDRM-1, AIM-1</p>
+  </header>
+
+  <div class="controls" id="weekControls"></div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>Day / Date</th>
+          <th>08:30 - 10:00</th>
+          <th>10:20 - 11:50</th>
+          <th>12:00 - 13:30</th>
+          <th>14:10 - 15:40</th>
+          <th>15:50 - 17:20</th>
+          <th>17:30 - 19:00</th>
+          <th>19:10 - 20:40</th>
+        </tr>
+      </thead>
+      <tbody id="timetableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const facultyMap = {
+    "WMAI-1": "Prof. Tarun K Soni",
+    "FD": "Prof. Vikas Pandey",
+    "BSRR-1": "Prof. Vandana Gupta",
+    "SDRM-1": "Prof. Qazi Asif Zameer",
+    "AIM-1": "Prof. Ashutosh Pandey"
+  };
+
+  const scheduleData = {
+    "Week 7": [
+      { day: "Mon 24-08", slots: [
+        { sub: "WMAI-1", cr: "CR-6" },
+        { sub: "BSRR-1", cr: "Pragya" },
+        null,
+        { sub: "SDRM-1", cr: "CR-6" },
+        { sub: "FD", cr: "CR-7" },
+        null, null
+      ]},
+      { day: "Tue 25-08", slots: [
+        null,
+        { sub: "SDRM-1", cr: "CR-6" },
+        null, null, null, null, null
+      ]},
+      { day: "Wed 26-08", holiday: "Id-e-Milad Holiday" },
+      { day: "Thu 27-08", slots: [
+        null,
+        { sub: "AIM-1", cr: "CR-17" },
+        null,
+        { sub: "WMAI-1", cr: "Pragya" },
+        null, null, null
+      ]},
+      { day: "Fri 28-08", holiday: "Rakshabandhan Holiday" },
+      { day: "Sat 29-08", slots: [null, null, null, null, null, null, null] },
+      { day: "Sun 30-08", slots: [null, null, null, null, null, null, null] }
+    ],
+    "Week 8": [
+      { day: "Mon 31-08", slots: [
+        null,
+        { sub: "SDRM-1", cr: "CR-6" },
+        null,
+        { sub: "FD", cr: "CR-7" },
+        null, null, null
+      ]},
+      { day: "Tue 01-09", slots: [
+        null,
+        { sub: "SDRM-1", cr: "CR-7" },
+        null,
+        { sub: "AIM-1", cr: "CR-7" },
+        null, null, null
+      ]},
+      { day: "Wed 02-09", slots: [
+        { sub: "BSRR-1", cr: "Audi" },
+        null, null,
+        { sub: "FD", cr: "CR-6" },
+        null, null, null
+      ]},
+      { day: "Thu 03-09", slots: [
+        null, null, null,
+        { sub: "WMAI-1", cr: "CR-17" },
+        null, null, null
+      ]},
+      { day: "Fri 04-09", slots: [null, null, null, null, null, null, null] },
+      { day: "Sat 05-09", slots: [null, null, null, null, null, null, null] },
+      { day: "Sun 06-09", slots: [null, null, null, null, null, null, null] }
+    ],
+    "Week 9": [
+      { day: "Mon 07-09", slots: [
+        null, null,
+        { sub: "FD", cr: "CR-6" },
+        null, null, null, null
+      ]},
+      { day: "Tue 08-09", slots: [
+        { sub: "SDRM-1", cr: "CR-7" },
+        null, null, null, null, null, null
+      ]},
+      { day: "Wed 09-09", slots: [
+        null, null,
+        { sub: "FD", cr: "CR-7" },
+        null,
+        { sub: "AIM-1", cr: "CR-7" },
+        null, null
+      ]},
+      { day: "Thu 10-09", slots: [
+        null, null,
+        { sub: "BSRR-1", cr: "CR-6" },
+        null,
+        { sub: "WMAI-1", cr: "CR-17" },
+        null, null
+      ]},
+      { day: "Fri 11-09", slots: [
+        null,
+        { sub: "WMAI-1", cr: "CR-7" },
+        null, null, null, null, null
+      ]},
+      { day: "Sat 12-09", slots: [null, null, null, null, null, null, null] },
+      { day: "Sun 13-09", slots: [null, null, null, null, null, null, null] }
+    ],
+    "Week 10": [
+      { day: "Mon 14-09", slots: [null, null, null, null, null, null, null] },
+      { day: "Tue 15-09", slots: [
+        { sub: "SDRM-1", cr: "CR-7" },
+        null, null,
+        { sub: "AIM-1", cr: "CR-6" },
+        null, null, null
+      ]},
+      { day: "Wed 16-09", slots: [
+        null,
+        { sub: "AIM-1", cr: "CR-6" },
+        null, null, null, null, null
+      ]},
+      { day: "Thu 17-09", slots: [
+        { sub: "FD", cr: "CR-7" },
+        null,
+        { sub: "WMAI-1", cr: "CR-6" },
+        null, null, null, null
+      ]},
+      { day: "Fri 18-09", slots: [
+        null,
+        { sub: "SDRM-1", cr: "CR-17" },
+        null,
+        { sub: "FD", cr: "CR-17" },
+        null, null, null
+      ]},
+      { day: "Sat 19-09", slots: [null, null, null, null, null, null, null] },
+      { day: "Sun 20-09", slots: [
+        null,
+        { sub: "WMAI-1", cr: "CR-7" },
+        null, null, null, null, null
+      ]}
+    ],
+    "Week 11": [
+      { day: "Mon 21-09", slots: [
+        { sub: "FD", cr: "CR-7" },
+        { sub: "WMAI-1", cr: "CR-6" },
+        null,
+        { sub: "AIM-1", cr: "CR-7" },
+        null, null, null
+      ]},
+      { day: "Tue 22-09", slots: [
+        { sub: "SDRM-1", cr: "CR-7" },
+        null, null,
+        { sub: "FD", cr: "CR-7" },
+        null, null, null
+      ]},
+      { day: "Wed 23-09", slots: [
+        { sub: "AIM-1", cr: "CR-6" },
+        null, null, null, null, null, null
+      ]},
+      { day: "Thu 24-09", slots: [
+        null,
+        { sub: "FD", cr: "CR-6" },
+        null, null, null, null, null
+      ]},
+      { day: "Fri 25-09", slots: [
+        null,
+        { sub: "WMAI-1", cr: "CR-7" },
+        null,
+        { sub: "SDRM-1", cr: "CR-6" },
+        null, null, null
+      ]},
+      { day: "Sat 26-09", slots: [null, null, null, null, null, null, null] },
+      { day: "Sun 27-09", slots: [null, null, null, null, null, null, null] }
+    ],
+    "Week 12": [
+      { day: "Mon 28-09", slots: [null, null, null, null, null, null, null] },
+      { day: "Tue 29-09", slots: [null, null, null, null, null, null, null] },
+      { day: "Wed 30-09", slots: [
+        null,
+        { sub: "BSRR-1", cr: "Pragya" },
+        null, null, null, null, null
+      ]},
+      { day: "Thu 01-10", slots: [
+        null, null, null,
+        { sub: "SDRM-1", cr: "CR-6" },
+        null, null, null
+      ]},
+      { day: "Fri 02-10", holiday: "Mahatma Gandhi's Birthday Holiday" },
+      { day: "Sat 03-10", slots: [null, null, null, null, null, null, null] },
+      { day: "Sun 04-10", slots: [null, null, null, null, null, null, null] }
+    ],
+    "Week 13": [
+      { day: "Mon 05-10", slots: [
+        null, null, null, null,
+        { sub: "WMAI-1", cr: "CR-17" },
+        null, null
+      ]},
+      { day: "Tue 06-10", slots: [
+        null,
+        { sub: "BSRR-1", cr: "CR-7" },
+        null, null, null, null, null
+      ]},
+      { day: "Wed 07-10", slots: [null, null, null, null, null, null, null] },
+      { day: "Thu 08-10", slots: [
+        null,
+        { sub: "BSRR-1", cr: "CR-6" },
+        { sub: "WMAI-1", cr: "CR-7" },
+        null, null, null, null
+      ]},
+      { day: "Fri 09-10", slots: [
+        null, null,
+        { sub: "BSRR-1", cr: "CR-17" },
+        null, null, null, null
+      ]},
+      { day: "Sat 10-10", slots: [null, null, null, null, null, null, null] },
+      { day: "Sun 11-10", slots: [null, null, null, null, null, null, null] }
+    ]
+  };
+
+  let currentWeek = "Week 7";
+
+  function renderButtons() {
+    const controls = document.getElementById("weekControls");
+    controls.innerHTML = "";
+    Object.keys(scheduleData).forEach(week => {
+      const btn = document.createElement("button");
+      btn.className = `week-btn ${week === currentWeek ? 'active' : ''}`;
+      btn.textContent = week;
+      btn.onclick = () => {
+        currentWeek = week;
+        renderButtons();
+        renderTable();
+      };
+      controls.appendChild(btn);
+    });
+  }
+
+  function renderTable() {
+    const tbody = document.getElementById("timetableBody");
+    tbody.innerHTML = "";
+    const days = scheduleData[currentWeek];
+
+    days.forEach(dayInfo => {
+      const tr = document.createElement("tr");
+      const dayTd = document.createElement("td");
+      dayTd.className = "day-col";
+      dayTd.textContent = dayInfo.day;
+      tr.appendChild(dayTd);
+
+      if (dayInfo.holiday) {
+        const holidayTd = document.createElement("td");
+        holidayTd.colSpan = 7;
+        holidayTd.className = "slot-holiday";
+        holidayTd.textContent = `🌴 ${dayInfo.holiday}`;
+        tr.appendChild(holidayTd);
+      } else {
+        dayInfo.slots.forEach(slot => {
+          const td = document.createElement("td");
+          if (slot) {
+            td.innerHTML = `
+              <div class="slot-class">
+                <div class="subject">${slot.sub}</div>
+                <div class="room">${slot.cr}</div>
+                <div class="faculty">${facultyMap[slot.sub]}</div>
+              </div>
+            `;
+          } else {
+            td.innerHTML = `<span class="slot-free">—</span>`;
+          }
+          tr.appendChild(td);
+        });
+      }
+      tbody.appendChild(tr);
+    });
+  }
+
+  renderButtons();
+  renderTable();
+</script>
+</body>
+</html>
