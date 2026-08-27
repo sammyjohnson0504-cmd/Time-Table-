@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
+<meta
+name="viewport"
 content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <meta name="theme-color" content="#e8ddc8">
@@ -15,9 +15,10 @@ content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <style>
 
-/* ================================
-   LIGHT BEIGE THEME
-================================ */
+/* =========================================
+   FORE TIMETABLE
+   LIGHT BEIGE IPHONE-FRIENDLY DESIGN
+========================================= */
 
 :root{
     --bg:#e8ddc8;
@@ -29,6 +30,8 @@ content="width=device-width, initial-scale=1, viewport-fit=cover">
 
     --accent:#8b6f47;
     --accent-dark:#5d452c;
+
+    --blue:#24558a;
 
     --line:rgba(80,60,35,.13);
 
@@ -72,9 +75,9 @@ select{
 }
 
 
-/* ================================
-   APP CONTAINER
-================================ */
+/* =========================================
+   APP
+========================================= */
 
 .app{
 
@@ -90,9 +93,9 @@ select{
 }
 
 
-/* ================================
+/* =========================================
    HEADER
-================================ */
+========================================= */
 
 .header{
 
@@ -109,42 +112,126 @@ select{
 }
 
 
-.brand-logo{
+.header-left{
+    min-width:0;
+}
 
-    width:115px;
 
-    height:auto;
+/* =========================================
+   BUILT-IN FORE LOGO
+========================================= */
 
-    display:block;
+.fore-logo{
 
-    margin-bottom:6px;
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    margin-bottom:7px;
+
+}
+
+
+.fore-symbol{
+
+    width:43px;
+
+    height:43px;
+
+    border-radius:11px;
+
+    background:var(--blue);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#f5eddf;
+
+    font-size:17px;
+
+    font-weight:900;
+
+    letter-spacing:-1px;
+
+    box-shadow:
+    0 5px 14px rgba(36,85,138,.18);
+
+}
+
+
+.fore-text{
+
+    display:flex;
+
+    flex-direction:column;
+
+    line-height:1;
+
+}
+
+
+.fore-main{
+
+    font-size:27px;
+
+    font-weight:900;
+
+    letter-spacing:.07em;
+
+    color:var(--blue);
+
+}
+
+
+.fore-sub{
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:.02em;
+
+    color:var(--text);
+
+    margin-top:5px;
 
 }
 
 
 .brand-name{
 
-    font-size:11px;
+    font-size:10px;
 
     font-weight:800;
 
     color:var(--muted);
 
-    letter-spacing:.04em;
+    letter-spacing:.05em;
 
 }
 
+
+/* =========================================
+   CLOCK
+========================================= */
 
 .clock{
 
     text-align:right;
 
-    font-size:17px;
+    font-size:16px;
 
-    font-weight:800;
+    font-weight:900;
 
     font-variant-numeric:
     tabular-nums;
+
+    white-space:nowrap;
 
 }
 
@@ -162,9 +249,9 @@ select{
 }
 
 
-/* ================================
-   SUBJECT CLASS COUNTS
-================================ */
+/* =========================================
+   SUBJECT COUNTS
+========================================= */
 
 .subject-stats{
 
@@ -176,7 +263,7 @@ select{
 
     margin-top:12px;
 
-    max-width:330px;
+    max-width:340px;
 
 }
 
@@ -211,9 +298,9 @@ select{
 }
 
 
-/* ================================
+/* =========================================
    ATTENDANCE
-================================ */
+========================================= */
 
 .attendance-summary{
 
@@ -260,7 +347,7 @@ select{
 
     border-radius:14px;
 
-    padding:9px;
+    padding:10px;
 
 }
 
@@ -325,9 +412,9 @@ select{
 }
 
 
-/* ================================
-   NEXT CLASS HERO
-================================ */
+/* =========================================
+   NEXT CLASS
+========================================= */
 
 .hero{
 
@@ -397,6 +484,8 @@ select{
 
     margin-top:4px;
 
+    line-height:1.4;
+
 }
 
 
@@ -418,9 +507,9 @@ select{
 }
 
 
-/* ================================
-   SECTION
-================================ */
+/* =========================================
+   SECTIONS
+========================================= */
 
 .section-title{
 
@@ -454,9 +543,9 @@ select{
 }
 
 
-/* ================================
-   TIMETABLE CARD
-================================ */
+/* =========================================
+   DAY
+========================================= */
 
 .day{
 
@@ -493,6 +582,10 @@ select{
 
 }
 
+
+/* =========================================
+   CLASS CARD
+========================================= */
 
 .class-card{
 
@@ -626,9 +719,9 @@ select{
 }
 
 
-/* ================================
+/* =========================================
    VACATION
-================================ */
+========================================= */
 
 .vacation-intro{
 
@@ -687,10 +780,6 @@ select{
     padding:16px;
 
     margin-bottom:10px;
-
-    box-shadow:
-    0 7px 20px
-    rgba(91,69,40,.06);
 
 }
 
@@ -820,9 +909,9 @@ select{
 }
 
 
-/* ================================
+/* =========================================
    HOLIDAYS
-================================ */
+========================================= */
 
 .holiday{
 
@@ -879,9 +968,9 @@ select{
 }
 
 
-/* ================================
+/* =========================================
    EMPTY
-================================ */
+========================================= */
 
 .empty{
 
@@ -901,9 +990,9 @@ select{
 }
 
 
-/* ================================
+/* =========================================
    CONTROLS
-================================ */
+========================================= */
 
 .controls{
 
@@ -932,6 +1021,8 @@ input{
 
     outline:none;
 
+    color:var(--text);
+
 }
 
 
@@ -942,9 +1033,9 @@ input{
 }
 
 
-/* ================================
+/* =========================================
    NAVIGATION
-================================ */
+========================================= */
 
 .nav{
 
@@ -1000,6 +1091,8 @@ input{
 
     font-weight:900;
 
+    cursor:pointer;
+
 }
 
 
@@ -1020,6 +1113,10 @@ input{
 }
 
 
+/* =========================================
+   SMALL IPHONE
+========================================= */
+
 @media(max-width:430px){
 
     .attendance-grid{
@@ -1030,7 +1127,12 @@ input{
         grid-column:auto;
     }
 
+    .fore-main{
+        font-size:24px;
+    }
+
 }
+
 
 </style>
 
@@ -1043,19 +1145,38 @@ input{
 <div class="app">
 
 
-<!-- =========================
+<!-- =====================================
      HEADER
-========================= -->
+===================================== -->
 
 <header class="header">
 
-    <div>
 
-        <!-- Put your FORE logo in the same folder -->
-        <img
-        src="fore-logo.png"
-        class="brand-logo"
-        alt="FORE School of Management">
+    <div class="header-left">
+
+
+        <!-- BUILT-IN FORE LOGO -->
+
+        <div class="fore-logo">
+
+            <div class="fore-symbol">
+                F
+            </div>
+
+            <div class="fore-text">
+
+                <div class="fore-main">
+                    FORE
+                </div>
+
+                <div class="fore-sub">
+                    School of Management
+                </div>
+
+            </div>
+
+        </div>
+
 
         <div class="brand-name">
             FORE School of Management
@@ -1085,8 +1206,11 @@ input{
 
         </div>
 
+
     </div>
 
+
+    <!-- CLOCK -->
 
     <div>
 
@@ -1101,13 +1225,14 @@ input{
 
     </div>
 
+
 </header>
 
 
 
-<!-- =========================
+<!-- =====================================
      NEXT CLASS
-========================= -->
+===================================== -->
 
 <section class="hero">
 
@@ -1123,10 +1248,12 @@ input{
 
             </div>
 
+
             <div
             class="next-title"
             id="nextTitle">
             </div>
+
 
             <div
             class="next-sub"
@@ -1147,9 +1274,9 @@ input{
 
 
 
-<!-- =========================
+<!-- =====================================
      TODAY
-========================= -->
+===================================== -->
 
 <section id="viewToday">
 
@@ -1167,9 +1294,9 @@ input{
 
 
 
-<!-- =========================
+<!-- =====================================
      WEEK
-========================= -->
+===================================== -->
 
 <section
 id="viewWeek"
@@ -1212,9 +1339,9 @@ class="hidden">
 
 
 
-<!-- =========================
+<!-- =====================================
      COURSES
-========================= -->
+===================================== -->
 
 <section
 id="viewCourses"
@@ -1234,9 +1361,9 @@ class="hidden">
 
 
 
-<!-- =========================
+<!-- =====================================
      VACATION
-========================= -->
+===================================== -->
 
 <section
 id="viewVacation"
@@ -1253,7 +1380,9 @@ class="hidden">
 
     <div class="vacation-intro">
 
-        <strong>Smart vacation combinations</strong>
+        <strong>
+            Smart vacation combinations
+        </strong>
 
         <p>
             These combinations are calculated from your timetable.
@@ -1270,9 +1399,9 @@ class="hidden">
 
 
 
-<!-- =========================
+<!-- =====================================
      HOLIDAYS
-========================= -->
+===================================== -->
 
 <section
 id="viewHolidays"
@@ -1292,9 +1421,9 @@ class="hidden">
 
 
 
-<!-- =========================
+<!-- =====================================
      NAVIGATION
-========================= -->
+===================================== -->
 
 <nav class="nav">
 
@@ -1347,46 +1476,38 @@ const COURSES = [
     [
         "WMAI-1",
         "Wealth Management and Alternate Investments",
-        "Prof. Tarun K Soni",
-        "TKS"
+        "Prof. Tarun K Soni"
     ],
 
     [
         "BSRR-1",
         "Banking: Strategy Risks and Regulations",
-        "Prof. Vandana Gupta",
-        "VG"
+        "Prof. Vandana Gupta"
     ],
 
     [
         "FD",
         "Financial Derivatives",
-        "Prof. Vikas Pandey",
-        "VP"
+        "Prof. Vikas Pandey"
     ],
 
     [
         "AIM-1",
         "Artificial Intelligence and Marketing",
-        "Prof. Ashutosh Pandey",
-        "AP"
+        "Prof. Ashutosh Pandey"
     ],
 
     [
         "SDRM-1",
         "Sales, Distribution and Retail Management",
-        "Prof. Qazi Asif Zameer",
-        "QZ"
+        "Prof. Qazi Asif Zameer"
     ]
 
 ];
 
 
-
 /* =====================================
-   LIVE ATTENDANCE SNAPSHOT
-
-   UPDATE THESE VALUES WHEN REQUIRED
+   ATTENDANCE
 ===================================== */
 
 const ATTENDANCE = {
@@ -1422,7 +1543,6 @@ const ATTENDANCE = {
 const ATTENDANCE_TARGET = 75;
 
 
-
 /* =====================================
    OFFICIAL HOLIDAYS
 ===================================== */
@@ -1448,7 +1568,6 @@ const HOLIDAYS = [
     }
 
 ];
-
 
 
 /* =====================================
@@ -1964,7 +2083,6 @@ week:"Week 13"
 ];
 
 
-
 /* =====================================
    DATE FUNCTIONS
 ===================================== */
@@ -1987,23 +2105,42 @@ function parseDate(date){
 
 function todayKey(){
 
-    return new Intl.DateTimeFormat(
-        "en-CA",
+    const parts =
+    new Intl.DateTimeFormat(
+        "en-IN",
         {
             timeZone:"Asia/Kolkata",
             year:"numeric",
             month:"2-digit",
             day:"2-digit"
         }
-    ).format(new Date());
+    ).formatToParts(new Date());
+
+
+    const year =
+    parts.find(
+        part => part.type === "year"
+    ).value;
+
+
+    const month =
+    parts.find(
+        part => part.type === "month"
+    ).value;
+
+
+    const day =
+    parts.find(
+        part => part.type === "day"
+    ).value;
+
+
+    return `${year}-${month}-${day}`;
 
 }
 
 
-function formatDate(
-date,
-options
-){
+function formatDate(date,options){
 
     return new Intl.DateTimeFormat(
         "en-IN",
@@ -2037,25 +2174,24 @@ function minutes(time){
 
 
     if(
-        period==="AM" &&
-        hour===12
+        period === "AM" &&
+        hour === 12
     ){
-        hour=0;
+        hour = 0;
     }
 
 
     if(
-        period==="PM" &&
-        hour!==12
+        period === "PM" &&
+        hour !== 12
     ){
-        hour+=12;
+        hour += 12;
     }
 
 
-    return hour*60+minute;
+    return hour * 60 + minute;
 
 }
-
 
 
 /* =====================================
@@ -2082,9 +2218,8 @@ function updateClock(){
 }
 
 
-
 /* =====================================
-   CLASS COUNTS
+   SUBJECT CLASS COUNTS
 ===================================== */
 
 function renderSubjectStats(){
@@ -2101,11 +2236,12 @@ function renderSubjectStats(){
         const count =
         DATA.filter(
             item =>
-            item.code===course[0]
+            item.code === course[0]
         ).length;
 
 
         return `
+
         <div class="subject-stat">
 
             ${course[0]}
@@ -2113,12 +2249,12 @@ function renderSubjectStats(){
             <b>${count}</b>
 
         </div>
+
         `;
 
     }).join("");
 
 }
-
 
 
 /* =====================================
@@ -2162,7 +2298,7 @@ function renderAttendance(){
 
         <div class="
         attendance-card
-        ${index===4 ? "wide" : ""}
+        ${index === 4 ? "wide" : ""}
         ">
 
             <div class="attendance-code">
@@ -2202,7 +2338,6 @@ function renderAttendance(){
     }).join("");
 
 }
-
 
 
 /* =====================================
@@ -2268,7 +2403,6 @@ function classCard(item){
 }
 
 
-
 /* =====================================
    TODAY
 ===================================== */
@@ -2282,7 +2416,7 @@ function renderToday(){
     const classes =
     DATA.filter(
         item =>
-        item.date===today
+        item.date === today
     ).sort(
         (a,b) =>
         minutes(a.start) -
@@ -2293,6 +2427,7 @@ function renderToday(){
     document.getElementById(
         "todayLabel"
     ).textContent =
+
     formatDate(
         today,
         {
@@ -2317,7 +2452,7 @@ function renderToday(){
         const holiday =
         HOLIDAYS.find(
             item =>
-            item.date===today
+            item.date === today
         );
 
 
@@ -2362,7 +2497,6 @@ function renderToday(){
 }
 
 
-
 /* =====================================
    WEEK VIEW
 ===================================== */
@@ -2383,16 +2517,16 @@ function renderWeek(){
     let classes =
     DATA.filter(
         item =>
-        item.week===state.week
+        item.week === state.week
     );
 
 
-    if(state.course!=="ALL"){
+    if(state.course !== "ALL"){
 
         classes =
         classes.filter(
             item =>
-            item.code===state.course
+            item.code === state.course
         );
 
     }
@@ -2427,7 +2561,7 @@ function renderWeek(){
     classes.forEach(item => {
 
         if(!grouped[item.date]){
-            grouped[item.date]=[];
+            grouped[item.date] = [];
         }
 
         grouped[item.date].push(item);
@@ -2461,6 +2595,7 @@ function renderWeek(){
                     )}
 
                 </div>
+
 
                 <div class="day-date">
 
@@ -2503,7 +2638,6 @@ function renderWeek(){
 }
 
 
-
 /* =====================================
    COURSES
 ===================================== */
@@ -2519,7 +2653,7 @@ function renderCourses(){
         const count =
         DATA.filter(
             item =>
-            item.code===course[0]
+            item.code === course[0]
         ).length;
 
 
@@ -2560,7 +2694,6 @@ function renderCourses(){
 }
 
 
-
 /* =====================================
    HOLIDAYS
 ===================================== */
@@ -2575,14 +2708,14 @@ function renderHolidays(){
     parseDate("2026-10-11");
 
 
-    const cards=[];
+    const cards = [];
 
 
     for(
 
-        let date=new Date(start);
+        let date = new Date(start);
 
-        date<=end;
+        date <= end;
 
         date.setUTCDate(
             date.getUTCDate()+1
@@ -2599,7 +2732,7 @@ function renderHolidays(){
         const hasClass =
         DATA.some(
             item =>
-            item.date===key
+            item.date === key
         );
 
 
@@ -2608,7 +2741,7 @@ function renderHolidays(){
             const official =
             HOLIDAYS.find(
                 item =>
-                item.date===key
+                item.date === key
             );
 
 
@@ -2672,15 +2805,11 @@ function renderHolidays(){
 }
 
 
-
 /* =====================================
-   VACATION PLANNER
+   VACATION FUNCTIONS
 ===================================== */
 
-function addDays(
-date,
-days
-){
+function addDays(date,days){
 
     const d =
     parseDate(date);
@@ -2696,10 +2825,7 @@ days
 }
 
 
-function formatRange(
-start,
-end
-){
+function formatRange(start,end){
 
     const startText =
     formatDate(
@@ -2727,10 +2853,9 @@ end
 }
 
 
-
 function vacationCandidates(){
 
-    const results=[];
+    const results = [];
 
     const first =
     "2026-08-24";
@@ -2740,9 +2865,9 @@ function vacationCandidates(){
 
 
     for(
-        let cursor=parseDate(first);
+        let cursor = parseDate(first);
 
-        cursor<=parseDate(last);
+        cursor <= parseDate(last);
 
         cursor.setUTCDate(
             cursor.getUTCDate()+1
@@ -2756,9 +2881,9 @@ function vacationCandidates(){
 
 
         for(
-            let days=10;
+            let days = 10;
 
-            days>=7;
+            days >= 7;
 
             days--
         ){
@@ -2770,7 +2895,7 @@ function vacationCandidates(){
             );
 
 
-            if(end>last){
+            if(end > last){
                 continue;
             }
 
@@ -2778,12 +2903,12 @@ function vacationCandidates(){
             const classes =
             DATA.filter(
                 item =>
-                item.date>=start &&
-                item.date<=end
+                item.date >= start &&
+                item.date <= end
             );
 
 
-            const subjectCount={};
+            const subjectCount = {};
 
 
             classes.forEach(item => {
@@ -2791,8 +2916,8 @@ function vacationCandidates(){
                 subjectCount[item.code] =
                 (
                     subjectCount[item.code]
-                    ||0
-                )+1;
+                    || 0
+                ) + 1;
 
             });
 
@@ -2802,7 +2927,7 @@ function vacationCandidates(){
                 subjectCount
             ).every(
                 count =>
-                count<=2
+                count <= 2
             );
 
 
@@ -2851,7 +2976,7 @@ function vacationCandidates(){
     );
 
 
-    const selected=[];
+    const selected = [];
 
 
     for(
@@ -2861,8 +2986,8 @@ function vacationCandidates(){
 
         const duplicate =
         selected.some(item =>
-            candidate.start>=item.start &&
-            candidate.end<=item.end
+            candidate.start >= item.start &&
+            candidate.end <= item.end
         );
 
 
@@ -2880,6 +3005,9 @@ function vacationCandidates(){
 }
 
 
+/* =====================================
+   VACATION PLANNER
+===================================== */
 
 function renderVacation(){
 
@@ -2918,12 +3046,10 @@ function renderVacation(){
             <span class="vacation-pill">
 
                 ${course[0]}
-
                 ·
-
                 ${missed}
 
-                class${missed===1?"":"es"}
+                class${missed === 1 ? "" : "es"}
 
             </span>
 
@@ -2941,7 +3067,7 @@ function renderVacation(){
 
             const missed =
             vacation.subjectCount[code]
-            ||0;
+            || 0;
 
 
             if(!missed){
@@ -2977,7 +3103,7 @@ function renderVacation(){
 
         <div class="
         vacation-card
-        ${index===0?"featured":""}
+        ${index === 0 ? "featured" : ""}
         ">
 
             <div class="vacation-top">
@@ -3007,7 +3133,7 @@ function renderVacation(){
 
                     ${vacation.total}
 
-                    class${vacation.total===1?"":"es"}
+                    class${vacation.total === 1 ? "" : "es"}
 
                     missed
 
@@ -3072,7 +3198,6 @@ function renderVacation(){
 }
 
 
-
 /* =====================================
    NEXT CLASS
 ===================================== */
@@ -3103,7 +3228,7 @@ function renderNextClass(){
     Number(
         parts.find(
             part =>
-            part.type==="hour"
+            part.type === "hour"
         ).value
     );
 
@@ -3112,13 +3237,13 @@ function renderNextClass(){
     Number(
         parts.find(
             part =>
-            part.type==="minute"
+            part.type === "minute"
         ).value
     );
 
 
     const nowMinutes =
-    hour*60+minute;
+    hour * 60 + minute;
 
 
     const sorted =
@@ -3129,7 +3254,7 @@ function renderNextClass(){
 
         ||
 
-        minutes(a.start)-
+        minutes(a.start) -
         minutes(b.start)
 
     );
@@ -3138,21 +3263,23 @@ function renderNextClass(){
     let next =
     sorted.find(item =>
 
-        item.date>today
+        item.date > today
 
         ||
 
         (
-            item.date===today
+            item.date === today
             &&
-            minutes(item.start)>nowMinutes
+            minutes(item.start) > nowMinutes
         )
 
     );
 
 
     if(!next){
-        next=sorted[0];
+
+        next = sorted[0];
+
     }
 
 
@@ -3160,7 +3287,7 @@ function renderNextClass(){
         "nextDate"
     ).textContent =
 
-    next.date===today
+    next.date === today
 
     ?
 
@@ -3181,22 +3308,24 @@ function renderNextClass(){
     document.getElementById(
         "nextTitle"
     ).textContent =
+
     `${next.code} · ${next.start}`;
 
 
     document.getElementById(
         "nextSub"
     ).textContent =
+
     `${next.prof} · ${next.room}`;
 
 
     document.getElementById(
         "classTotal"
     ).textContent =
+
     `${DATA.length} classes`;
 
 }
-
 
 
 /* =====================================
@@ -3222,7 +3351,7 @@ function setView(view){
             "view"+name
         ).classList.toggle(
             "hidden",
-            name!==view
+            name !== view
         );
 
 
@@ -3230,7 +3359,7 @@ function setView(view){
             `[data-view="${name}"]`
         ).classList.toggle(
             "active",
-            name===view
+            name === view
         );
 
     });
@@ -3253,7 +3382,6 @@ document
     );
 
 });
-
 
 
 /* =====================================
@@ -3281,7 +3409,6 @@ weeks.map(
 ).join("");
 
 
-
 /* =====================================
    COURSE FILTER
 ===================================== */
@@ -3302,7 +3429,6 @@ COURSES.map(course =>
 ).join("");
 
 
-
 document.getElementById(
     "weekSelect"
 ).addEventListener(
@@ -3316,7 +3442,6 @@ document.getElementById(
 
     }
 );
-
 
 
 document.getElementById(
@@ -3334,7 +3459,6 @@ document.getElementById(
 );
 
 
-
 document.getElementById(
     "search"
 ).addEventListener(
@@ -3348,7 +3472,6 @@ document.getElementById(
 
     }
 );
-
 
 
 /* =====================================
@@ -3379,7 +3502,6 @@ function initialize(){
 
 
 initialize();
-
 
 
 setInterval(
